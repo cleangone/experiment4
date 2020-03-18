@@ -1,0 +1,19 @@
+type Todo @model {
+  id: ID!
+  name: String!
+  description: String
+  votes: Int!
+}
+
+input CastVoteInput {
+  id: ID!
+}
+
+type Mutation {
+  castVote(input: CastVoteInput!): Todo
+}
+
+type Subscription {
+  onCastVote: Todo
+    @aws_subscribe(mutations: ["castVote"])
+}
