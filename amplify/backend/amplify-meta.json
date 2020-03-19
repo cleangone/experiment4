@@ -35,7 +35,7 @@
                 "s3TemplateURL": "https://s3.amazonaws.com/amplify-cleangone4-dev-213303-deployment/amplify-cfn-templates/api/cloudformation-template.json",
                 "logicalId": "apicleangone4"
             },
-            "lastPushTimeStamp": "2020-03-18T05:21:40.625Z",
+            "lastPushTimeStamp": "2020-03-19T16:36:03.816Z",
             "lastPushDirHash": "AppSAsAhu6YWlEkP0OKExyc/UmE="
         }
     }

@@ -1,7 +1,5 @@
 <template>
   <div id="app">
-    <div class="text-gray-800 md:text-lg italic font-light">Important ToDo's</div>
-
     <div>
       <!--todo - add border-->
       <input v-model="newTodoName" placeholder="New ToDo">
