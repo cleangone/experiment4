@@ -2,7 +2,7 @@
   <div id="app">
     <div>
       <!--todo - add border-->
-      <input v-model="newTodoName" placeholder="New ToDo">
+      <input v-model="newTodoName" placeholder="New Item">
       
       <!--todo - make look like button-->
       <button @click="createTodo(newTodoName)">Add</button>
