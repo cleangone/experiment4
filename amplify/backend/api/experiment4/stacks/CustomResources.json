@@ -33,7 +33,7 @@
 	        "ApiId": {
 	          "Ref": "AppSyncApiId"
 	        },
-	        "DataSourceName": "TodoTable",
+	        "DataSourceName": "TrendTable",
 	        "FieldName": "castVote",
 	        "TypeName": "Mutation",
 	        "RequestMappingTemplateS3Location": {
@@ -76,6 +76,65 @@
 	                  [
 	                    "Mutation",
 	                    "castVote",
+	                    "res",
+	                    "vtl"
+	                  ]
+	                ]
+	              }
+	            }
+	          ]
+	        }
+	      }
+	    },
+	    "DownVoteResolver": {
+	      "Type": "AWS::AppSync::Resolver",
+	      "Properties": {
+	        "ApiId": {
+	          "Ref": "AppSyncApiId"
+	        },
+	        "DataSourceName": "TrendTable",
+	        "FieldName": "downVote",
+	        "TypeName": "Mutation",
+	        "RequestMappingTemplateS3Location": {
+	          "Fn::Sub": [
+	            "s3://${S3DeploymentBucket}/${S3DeploymentRootKey}/resolvers/${ResolverFileName}",
+	            {
+	              "S3DeploymentBucket": {
+	                "Ref": "S3DeploymentBucket"
+	              },
+	              "S3DeploymentRootKey": {
+	                "Ref": "S3DeploymentRootKey"
+	              },
+	              "ResolverFileName": {
+	                "Fn::Join": [
+	                  ".",
+	                  [
+	                    "Mutation",
+	                    "downVote",
+	                    "req",
+	                    "vtl"
+	                  ]
+	                ]
+	              }
+	            }
+	          ]
+	        },
+	        "ResponseMappingTemplateS3Location": {
+	          "Fn::Sub": [
+	            "s3://${S3DeploymentBucket}/${S3DeploymentRootKey}/resolvers/${ResolverFileName}",
+	            {
+	              "S3DeploymentBucket": {
+	                "Ref": "S3DeploymentBucket"
+	              },
+	              "S3DeploymentRootKey": {
+	                "Ref": "S3DeploymentRootKey"
+	              },
+	              "ResolverFileName": {
+	                "Fn::Join": [
+	                  ".",
+	                  [
+	                    "Mutation",
+	                    "downVote",
 	                    "res",
 	                    "vtl"
 	                  ]

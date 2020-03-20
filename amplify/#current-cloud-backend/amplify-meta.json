@@ -1,19 +1,19 @@
 {
 	"providers": {
 		"awscloudformation": {
-			"AuthRoleName": "amplify-cleangone4-dev-213303-authRole",
-			"UnauthRoleArn": "arn:aws:iam::575849001664:role/amplify-cleangone4-dev-213303-unauthRole",
-			"AuthRoleArn": "arn:aws:iam::575849001664:role/amplify-cleangone4-dev-213303-authRole",
+			"AuthRoleName": "amplify-experiment4-dev-25129-authRole",
+			"UnauthRoleArn": "arn:aws:iam::575849001664:role/amplify-experiment4-dev-25129-unauthRole",
+			"AuthRoleArn": "arn:aws:iam::575849001664:role/amplify-experiment4-dev-25129-authRole",
 			"Region": "us-west-2",
-			"DeploymentBucketName": "amplify-cleangone4-dev-213303-deployment",
-			"UnauthRoleName": "amplify-cleangone4-dev-213303-unauthRole",
-			"StackName": "amplify-cleangone4-dev-213303",
-			"StackId": "arn:aws:cloudformation:us-west-2:575849001664:stack/amplify-cleangone4-dev-213303/e3601750-6896-11ea-b011-02c46d078154",
-			"AmplifyAppId": "d1b2oaogbop5md"
+			"DeploymentBucketName": "amplify-experiment4-dev-25129-deployment",
+			"UnauthRoleName": "amplify-experiment4-dev-25129-unauthRole",
+			"StackName": "amplify-experiment4-dev-25129",
+			"StackId": "arn:aws:cloudformation:us-west-2:575849001664:stack/amplify-experiment4-dev-25129/b38eb520-6a55-11ea-b6f5-06ce7351dd4e",
+			"AmplifyAppId": "d30y360oql2dyy"
 		}
 	},
 	"api": {
-		"cleangone4": {
+		"experiment4": {
 			"service": "AppSync",
 			"providerPlugin": "awscloudformation",
 			"output": {
@@ -23,20 +23,20 @@
 						"authenticationType": "API_KEY",
 						"apiKeyConfig": {
 							"description": "",
-							"apiKeyExpirationDays": 7
+							"apiKeyExpirationDays": "300"
 						}
 					}
 				},
-				"GraphQLAPIIdOutput": "cw7pler7g5cb7og3ttg3f4wpce",
-				"GraphQLAPIEndpointOutput": "https://bzji62otijeydeoh2voewfoxcm.appsync-api.us-west-2.amazonaws.com/graphql",
-				"GraphQLAPIKeyOutput": "da2-hbyoj5gcb5hjzfddwu2muxg47u"
+				"GraphQLAPIIdOutput": "zvgqi5rthbcsrkohtupruikvcy",
+				"GraphQLAPIEndpointOutput": "https://xmhrmicm5bbutkv25o5dchkppm.appsync-api.us-west-2.amazonaws.com/graphql",
+				"GraphQLAPIKeyOutput": "da2-hxsjtfmmvfaltcpt2y4nxcc5ee"
 			},
 			"providerMetadata": {
-				"s3TemplateURL": "https://s3.amazonaws.com/amplify-cleangone4-dev-213303-deployment/amplify-cfn-templates/api/cloudformation-template.json",
-				"logicalId": "apicleangone4"
+				"s3TemplateURL": "https://s3.amazonaws.com/amplify-experiment4-dev-25129-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+				"logicalId": "apiexperiment4"
 			},
-			"lastPushTimeStamp": "2020-03-18T03:37:33.307Z",
-			"lastPushDirHash": "AppSAsAhu6YWlEkP0OKExyc/UmE="
+			"lastPushTimeStamp": "2020-03-20T03:13:55.184Z",
+			"lastPushDirHash": "0YOU9kmU2/QiWmeRGVnHtI3OD9Q="
 		}
 	}
 }

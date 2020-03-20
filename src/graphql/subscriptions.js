@@ -6,38 +6,48 @@ export const onCastVote = /* GraphQL */ `
     onCastVote {
       id
       name
-      description
       votes
+      downVotes
     }
   }
 `;
-export const onCreateTodo = /* GraphQL */ `
-  subscription OnCreateTodo {
-    onCreateTodo {
+export const onDownVote = /* GraphQL */ `
+  subscription OnDownVote {
+    onDownVote {
       id
       name
-      description
       votes
+      downVotes
     }
   }
 `;
-export const onUpdateTodo = /* GraphQL */ `
-  subscription OnUpdateTodo {
-    onUpdateTodo {
+export const onCreateTrend = /* GraphQL */ `
+  subscription OnCreateTrend {
+    onCreateTrend {
       id
       name
-      description
       votes
+      downVotes
     }
   }
 `;
-export const onDeleteTodo = /* GraphQL */ `
-  subscription OnDeleteTodo {
-    onDeleteTodo {
+export const onUpdateTrend = /* GraphQL */ `
+  subscription OnUpdateTrend {
+    onUpdateTrend {
       id
       name
-      description
       votes
+      downVotes
+    }
+  }
+`;
+export const onDeleteTrend = /* GraphQL */ `
+  subscription OnDeleteTrend {
+    onDeleteTrend {
+      id
+      name
+      votes
+      downVotes
     }
   }
 `;

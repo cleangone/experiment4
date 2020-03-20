@@ -1,0 +1,22 @@
+type Trend @model {
+  id: ID!
+  name: String!
+  votes: Int!
+  downVotes: Int!
+}
+
+input CastVoteInput {
+  id: ID!
+}
+
+type Mutation {
+  castVote(input: CastVoteInput!): Trend
+  downVote(input: CastVoteInput!): Trend
+}
+
+type Subscription {
+  onCastVote: Trend
+    @aws_subscribe(mutations: ["castVote"])
+  onDownVote: Trend
+    @aws_subscribe(mutations: ["downVote"])
+}

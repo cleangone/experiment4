@@ -6,47 +6,57 @@ export const castVote = /* GraphQL */ `
     castVote(input: $input) {
       id
       name
-      description
       votes
+      downVotes
     }
   }
 `;
-export const createTodo = /* GraphQL */ `
-  mutation CreateTodo(
-    $input: CreateTodoInput!
-    $condition: ModelTodoConditionInput
-  ) {
-    createTodo(input: $input, condition: $condition) {
+export const downVote = /* GraphQL */ `
+  mutation DownVote($input: CastVoteInput!) {
+    downVote(input: $input) {
       id
       name
-      description
       votes
+      downVotes
     }
   }
 `;
-export const updateTodo = /* GraphQL */ `
-  mutation UpdateTodo(
-    $input: UpdateTodoInput!
-    $condition: ModelTodoConditionInput
+export const createTrend = /* GraphQL */ `
+  mutation CreateTrend(
+    $input: CreateTrendInput!
+    $condition: ModelTrendConditionInput
   ) {
-    updateTodo(input: $input, condition: $condition) {
+    createTrend(input: $input, condition: $condition) {
       id
       name
-      description
       votes
+      downVotes
     }
   }
 `;
-export const deleteTodo = /* GraphQL */ `
-  mutation DeleteTodo(
-    $input: DeleteTodoInput!
-    $condition: ModelTodoConditionInput
+export const updateTrend = /* GraphQL */ `
+  mutation UpdateTrend(
+    $input: UpdateTrendInput!
+    $condition: ModelTrendConditionInput
   ) {
-    deleteTodo(input: $input, condition: $condition) {
+    updateTrend(input: $input, condition: $condition) {
       id
       name
-      description
       votes
+      downVotes
+    }
+  }
+`;
+export const deleteTrend = /* GraphQL */ `
+  mutation DeleteTrend(
+    $input: DeleteTrendInput!
+    $condition: ModelTrendConditionInput
+  ) {
+    deleteTrend(input: $input, condition: $condition) {
+      id
+      name
+      votes
+      downVotes
     }
   }
 `;

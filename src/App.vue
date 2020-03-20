@@ -1,23 +1,29 @@
 <template>
   <div id="app">
     <div>
-      <input v-model="newTodoName" placeholder="New Item">
-      <button @click="createTodo(newTodoName)">Add</button>
+      <input v-model="newTrendName" placeholder="New Trend">
+      <button @click="createTrend(newTrendName)">Add</button>
     </div>
     
     <div class="mx-auto flex mt-4">
-      <button v-for="(candidate, index) in candidates" v-bind:key="candidate.id" @click="castVote(candidate.id)"
-        v-bind:class="`focus:outline-none flex-1 h-max text-white text-sm sm:text-lg font-semibold py-2 px-2 mx-1 md:h-18 h-18 rounded bg-${candidateColors[index]}-600 hover:bg-${candidateColors[index]}-800`">
-        {{candidate.name}}<p>{{candidate.votes}}</p>
+      <button v-for="(trend, index) in trends" v-bind:key="trend.id" @click="castVote(trend.id)"
+        v-bind:class="`focus:outline-none flex-1 h-max text-white text-sm sm:text-lg font-semibold py-2 px-2 mx-1 md:h-18 h-18 rounded bg-${trendColors[index]}-600 hover:bg-${trendColors[index]}-800`">
+        + {{trend.name}} ({{trend.votes}})
       </button>
     </div>
-    <h1 class="text-gray-800 font-bold mt-8 mb-3">Live updates</h1>
+    <div class="mx-auto flex mt-4">
+      <button v-for="(trend, index) in trends" v-bind:key="trend.id" @click="downVote(trend.id)"
+        v-bind:class="`focus:outline-none flex-1 h-max text-white text-sm sm:text-lg font-semibold py-2 px-2 mx-1 md:h-18 h-18 rounded bg-${trendColors[index]}-600 hover:bg-${trendColors[index]}-800`">
+        - {{trend.name}} ({{trend.downVotes}})
+      </button>
+    </div>
+
     <VoteChart v-bind:chartData="chartData" width="200" height="110"></VoteChart>
     
     <div class="mx-auto flex mt-4">
-      <button v-for="(candidate, index) in candidates" v-bind:key="candidate.id" @click="deleteTodo(candidate)"
-        v-bind:class="`focus:outline-none flex-1 h-max text-white text-sm sm:text-lg font-semibold py-2 px-2 mx-1 md:h-18 h-18 rounded bg-${candidateColors[index]}-600 hover:bg-black`">
-        <p>Delete</p>{{candidate.name}}
+      <button v-for="(trend, index) in trends" v-bind:key="trend.id" @click="deleteTrend(trend)"
+        v-bind:class="`focus:outline-none flex-1 h-max text-white text-sm sm:text-lg font-semibold py-2 px-2 mx-1 md:h-18 h-18 rounded bg-${trendColors[index]}-600 hover:bg-black`">
+        <p>Delete</p>{{trend.name}}
       </button>
     </div>
  
@@ -40,43 +46,47 @@ export default {
   components: { VoteChart },
   data() {
     return {
-      candidates: [],
-      candidateColors: colors
+      trends: [],
+      trendColors: colors
     };
   },
   computed: {
     chartData: function() {
       return {
-        labels: this.candidates.map(candidate => candidate.name),
+        labels: this.trends.map(trend => trend.name),
         datasets: [{
             label: false,
-            data: this.candidates.map(candidate => candidate.votes),
+            data: this.trends.map(trend => trend.votes - trend.downVotes),
             backgroundColor: backgroundColors
           }]};
     }
   },
   async created() {
-    await API.graphql(graphqlOperation(queries.listTodos)).then(
-      res => (this.candidates = res.data.listTodos.items)
+    await API.graphql(graphqlOperation(queries.listTrends)).then(
+      res => (this.trends = res.data.listTrends.items)
     );
   },
   methods: {
-   createTodo(name) {
-      // alert ("creating " + name);
-      const todo = {name:name, votes:0};
-      API.graphql(graphqlOperation(mutations.createTodo, { input: todo }));
-      this.newTodoName = '';
+   createTrend(name) {
+      // alert ("createTrend " + name);
+      const todo = {name:name, votes:0, downVotes:0};
+      API.graphql(graphqlOperation(mutations.createTrend, { input: todo }));
+      this.newTrendName = '';
     },
     castVote(id) {
       const voteInput = { id: id };
       API.graphql(graphqlOperation(mutations.castVote, { input: voteInput }));
     },
-    deleteTodo(todo) {
-      //alert ("deleteTodo " + todo.name);
-      this.$dialog.confirm("Delete " + todo.name + "?", { okText:'Delete', cancelText:'Cancel' })
+    downVote(id) {
+      const voteInput = { id: id };
+      API.graphql(graphqlOperation(mutations.downVote, { input: voteInput }));
+    },
+    deleteTrend(trend) {
+      //alert ("deleteTrend " + trend.name);
+      this.$dialog.confirm("Delete " + trend.name + "?", { okText:'Delete', cancelText:'Cancel' })
         .then(function() {
-          const deleteInput = { id: todo.id };
-          API.graphql(graphqlOperation(mutations.deleteTodo, { input: deleteInput }));
+          const deleteInput = { id: trend.id };
+          API.graphql(graphqlOperation(mutations.deleteTrend, { input: deleteInput }));
         });
     }
   },
@@ -85,21 +95,29 @@ export default {
       next: voteCasted => {
         const id = voteCasted.value.data.onCastVote.id;
         const votes = voteCasted.value.data.onCastVote.votes;
-        const candidate = this.candidates.find(candidate => candidate.id === id);
-        candidate.votes = votes;
+        const trend = this.trends.find(trend => trend.id === id);
+        trend.votes = votes;
       }
     });
-    API.graphql(graphqlOperation(subscriptions.onCreateTodo)).subscribe({
-      next: createdTodo => {
-        //alert ("subscriptions.onCreateTodo: " + createdTodo.value.data.onCreateTodo.name);
-        this.candidates.push(createdTodo.value.data.onCreateTodo);
+    API.graphql(graphqlOperation(subscriptions.onDownVote)).subscribe({
+      next: downVoteCasted => {
+        const id = downVoteCasted.value.data.onDownVote.id;
+        const downVotes = downVoteCasted.value.data.onDownVote.downVotes;
+        const trend = this.trends.find(trend => trend.id === id);
+        trend.downVotes = downVotes;
+      }
+    });
+    API.graphql(graphqlOperation(subscriptions.onCreateTrend)).subscribe({
+      next: createdTrend => {
+        //alert ("subscriptions.onCreateTrend: " + createdTodo.value.data.onCreateTrend.name);
+        this.trends.push(createdTrend.value.data.onCreateTrend);
       } 
     });
-    API.graphql(graphqlOperation(subscriptions.onDeleteTodo)).subscribe({
-      next: deletedTodo => {
-        //alert ("subscriptions.onDeleteTodo: " + deletedTodo.value.data.onDeleteTodo.name);
-        const id = deletedTodo.value.data.onDeleteTodo.id;
-        this.candidates = this.candidates.filter(candidate => candidate.id !== id )
+    API.graphql(graphqlOperation(subscriptions.onDeleteTrend)).subscribe({
+      next: deletedTrend => {
+        //alert ("subscriptions.onDeleteTrend: " + deletedTrend.value.data.onDeleteTrend.name);
+        const id = deletedTrend.value.data.onDeleteTrend.id;
+        this.trends = this.trends.filter(trend => trend.id !== id )
       } 
     });
   }
