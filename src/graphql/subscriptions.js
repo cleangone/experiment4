@@ -1,12 +1,12 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCastVote = /* GraphQL */ `
-  subscription OnCastVote {
-    onCastVote {
+export const onUpVote = /* GraphQL */ `
+  subscription OnUpVote {
+    onUpVote {
       id
       name
-      votes
+      upVotes
       downVotes
     }
   }
@@ -16,7 +16,7 @@ export const onDownVote = /* GraphQL */ `
     onDownVote {
       id
       name
-      votes
+      upVotes
       downVotes
     }
   }
@@ -26,7 +26,7 @@ export const onCreateTrend = /* GraphQL */ `
     onCreateTrend {
       id
       name
-      votes
+      upVotes
       downVotes
     }
   }
@@ -36,7 +36,7 @@ export const onUpdateTrend = /* GraphQL */ `
     onUpdateTrend {
       id
       name
-      votes
+      upVotes
       downVotes
     }
   }
@@ -46,7 +46,7 @@ export const onDeleteTrend = /* GraphQL */ `
     onDeleteTrend {
       id
       name
-      votes
+      upVotes
       downVotes
     }
   }

@@ -6,9 +6,9 @@
     </div>
     
     <div class="mx-auto flex mt-4">
-      <button v-for="(trend, index) in trends" v-bind:key="trend.id" @click="castVote(trend.id)"
+      <button v-for="(trend, index) in trends" v-bind:key="trend.id" @click="upVote(trend.id)"
         v-bind:class="`focus:outline-none flex-1 h-max text-white text-sm sm:text-lg font-semibold py-2 px-2 mx-1 md:h-18 h-18 rounded bg-${trendColors[index]}-600 hover:bg-${trendColors[index]}-800`">
-        + {{trend.name}} ({{trend.votes}})
+        + {{trend.name}} ({{trend.upVotes}})
       </button>
     </div>
     <div class="mx-auto flex mt-4">
@@ -56,7 +56,7 @@ export default {
         labels: this.trends.map(trend => trend.name),
         datasets: [{
             label: false,
-            data: this.trends.map(trend => trend.votes - trend.downVotes),
+            data: this.trends.map(trend => trend.upVotes - trend.downVotes),
             backgroundColor: backgroundColors
           }]};
     }
@@ -72,13 +72,13 @@ export default {
   methods: {
    createTrend(name) {
       // alert ("createTrend " + name);
-      const todo = {name:name, votes:0, downVotes:0};
+      const todo = {name:name, upVotes:0, downVotes:0};
       API.graphql(graphqlOperation(mutations.createTrend, { input: todo }));
       this.newTrendName = '';
     },
-    castVote(id) {
+    upVote(id) {
       const voteInput = { id: id };
-      API.graphql(graphqlOperation(mutations.castVote, { input: voteInput }));
+      API.graphql(graphqlOperation(mutations.upVote, { input: voteInput }));
     },
     downVote(id) {
       const voteInput = { id: id };
@@ -94,18 +94,18 @@ export default {
     }
   },
   mounted() {
-    API.graphql(graphqlOperation(subscriptions.onCastVote)).subscribe({
+    API.graphql(graphqlOperation(subscriptions.onUpVote)).subscribe({
       next: voteCasted => {
-        const id = voteCasted.value.data.onCastVote.id;
-        const votes = voteCasted.value.data.onCastVote.votes;
+        const id = voteCasted.value.data.onUpVote.id;
+        const upVotes = voteCasted.value.data.onUpVote.upVotes;
         const trend = this.trends.find(trend => trend.id === id);
-        trend.votes = votes;
+        trend.upVotes = upVotes;
       }
     });
     API.graphql(graphqlOperation(subscriptions.onDownVote)).subscribe({
-      next: downVoteCasted => {
-        const id = downVoteCasted.value.data.onDownVote.id;
-        const downVotes = downVoteCasted.value.data.onDownVote.downVotes;
+      next: voteCasted => {
+        const id = voteCasted.value.data.onDownVote.id;
+        const downVotes = voteCasted.value.data.onDownVote.downVotes;
         const trend = this.trends.find(trend => trend.id === id);
         trend.downVotes = downVotes;
       }

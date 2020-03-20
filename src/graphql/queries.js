@@ -6,7 +6,7 @@ export const getTrend = /* GraphQL */ `
     getTrend(id: $id) {
       id
       name
-      votes
+      upVotes
       downVotes
     }
   }
@@ -21,7 +21,7 @@ export const listTrends = /* GraphQL */ `
       items {
         id
         name
-        votes
+        upVotes
         downVotes
       }
       nextToken

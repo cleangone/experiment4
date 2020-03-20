@@ -27,14 +27,14 @@
 		}
 	},
 	"Resources": {
-		"CastVoteResolver": {
+		"UpVoteResolver": {
 	      "Type": "AWS::AppSync::Resolver",
 	      "Properties": {
 	        "ApiId": {
 	          "Ref": "AppSyncApiId"
 	        },
 	        "DataSourceName": "TrendTable",
-	        "FieldName": "castVote",
+	        "FieldName": "upVote",
 	        "TypeName": "Mutation",
 	        "RequestMappingTemplateS3Location": {
 	          "Fn::Sub": [
@@ -51,7 +51,7 @@
 	                  ".",
 	                  [
 	                    "Mutation",
-	                    "castVote",
+	                    "upVote",
 	                    "req",
 	                    "vtl"
 	                  ]
@@ -75,7 +75,7 @@
 	                  ".",
 	                  [
 	                    "Mutation",
-	                    "castVote",
+	                    "upVote",
 	                    "res",
 	                    "vtl"
 	                  ]
