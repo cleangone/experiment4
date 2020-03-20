@@ -37,10 +37,10 @@ import * as queries from "./graphql/queries";
 import * as mutations from "./graphql/mutations";
 import * as subscriptions from "./graphql/subscriptions";
 
-const distinctColors = ["red", "orange", "green", "blue"]
-const distinctBackgroundColors = ["#e53e3e", "#dd6b20", "#38a169", "#3182ce"]
-const colors = distinctColors.concat(distinctColors)
-const backgroundColors = distinctBackgroundColors.concat(distinctBackgroundColors)
+const colorNames = ["red", "orange", "green", "blue"]
+const colorHex = ["#e53e3e", "#dd6b20", "#38a169", "#3182ce"]
+const colors = colorNames.concat(colorNames)
+const backgroundColors = colorHex.concat(colorHex)
 
 export default {
   components: { VoteChart },
@@ -63,7 +63,10 @@ export default {
   },
   async created() {
     await API.graphql(graphqlOperation(queries.listTrends)).then(
-      res => (this.trends = res.data.listTrends.items)
+      res => {
+        this.trends = res.data.listTrends.items
+        this.trends.sort((a, b) => a.name.localeCompare(b.name));
+      }
     );
   },
   methods: {
@@ -111,6 +114,7 @@ export default {
       next: createdTrend => {
         //alert ("subscriptions.onCreateTrend: " + createdTodo.value.data.onCreateTrend.name);
         this.trends.push(createdTrend.value.data.onCreateTrend);
+        this.trends.sort((a, b) => a.name.localeCompare(b.name));
       } 
     });
     API.graphql(graphqlOperation(subscriptions.onDeleteTrend)).subscribe({
