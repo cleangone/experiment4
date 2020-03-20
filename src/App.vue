@@ -1,14 +1,10 @@
 <template>
   <div id="app">
     <div>
-      <!--todo - add border-->
       <input v-model="newTodoName" placeholder="New Item">
-      
-      <!--todo - make look like button-->
       <button @click="createTodo(newTodoName)">Add</button>
     </div>
     
-
     <div class="mx-auto flex mt-4">
       <button v-for="(candidate, index) in candidates" v-bind:key="candidate.id" @click="castVote(candidate.id)"
         v-bind:class="`focus:outline-none flex-1 h-max text-white text-sm sm:text-lg font-semibold py-2 px-2 mx-1 md:h-18 h-18 rounded bg-${candidateColors[index]}-600 hover:bg-${candidateColors[index]}-800`">
@@ -109,3 +105,12 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+input {
+  border: 2px solid silver;
+  margin: 1px 4px;
+  padding: 2px 2px;
+  width: 140px;
+}
+</style>
