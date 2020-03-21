@@ -8,8 +8,8 @@
       </ul>
       <br>
     </div>
-    
-    <div>
+
+    <div v-if="isSignedIn">
       <input v-model="newTrendName" placeholder="New Trend">
       <button @click="createTrend(newTrendName)">Add</button>
     </div>
@@ -29,7 +29,7 @@
 
     <VoteChart v-bind:chartData="chartData" width="200" height="110"></VoteChart>
     
-    <div class="mx-auto flex mt-4">
+    <div v-if="isSignedIn" class="mx-auto flex mt-4">
       <button v-for="(trend, index) in trends" v-bind:key="trend.id" @click="deleteTrend(trend)"
         v-bind:class="`focus:outline-none flex-1 h-max text-white text-sm sm:text-lg font-semibold py-2 px-2 mx-1 md:h-18 h-18 rounded bg-${trendColors[index]}-600 hover:bg-black`">
         <p>Delete</p>{{trend.name}}
@@ -40,17 +40,15 @@
 </template>
 
 <script>
-// import VoteChart from "./components/VoteChart";
-// import { API, graphqlOperation } from "aws-amplify";
-// import * as queries from "./graphql/queries";
-// import * as mutations from "./graphql/mutations";
-// import * as subscriptions from "./graphql/subscriptions";
-
 import VoteChart from "./VoteChart";
 import { API, graphqlOperation } from "aws-amplify";
 import * as queries from "../graphql/queries";
 import * as mutations from "../graphql/mutations";
 import * as subscriptions from "../graphql/subscriptions";
+import { mapGetters } from 'vuex';
+
+
+
 
 const colorNames = ["red", "orange", "green", "blue"]
 const colorHex = ["#e53e3e", "#dd6b20", "#38a169", "#3182ce"]
@@ -66,6 +64,7 @@ export default {
     };
   },
   computed: {
+    ...mapGetters(['isSignedIn']),
     chartData: function() {
       return {
         labels: this.trends.map(trend => trend.name),

@@ -8,7 +8,7 @@ import VueRouter from 'vue-router'
 import VuejsDialog from 'vuejs-dialog';
 import Login from './components/Login'
 import Trends from './components/Trends'
-
+import store from './store'
 import 'vuejs-dialog/dist/vuejs-dialog.min.css';
 
 Amplify.configure(awsconfig)
@@ -27,8 +27,8 @@ const router = new VueRouter({
     mode: 'history'
 });
 
-
 new Vue({
     router,
+    store,
     render: h => h(App),
 }).$mount('#app')

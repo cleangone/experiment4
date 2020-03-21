@@ -8,7 +8,8 @@
         <td align=right>
           <router-link to="/">Home</router-link>
           &nbsp; &nbsp;
-          <router-link to="/Login">Login</router-link>
+          <router-link to="/Login" v-if="!isSignedIn">Login</router-link>
+          <router-link to="/Login" v-if="isSignedIn">Logout</router-link>
         </td>
         </tr>
     </table>
@@ -19,6 +20,13 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+export default {
+  computed: mapGetters(['isSignedIn']),
+  created() {
+    // alert("App created")
+  }
+}
 </script>
 
 <style scoped>

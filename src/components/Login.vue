@@ -6,51 +6,37 @@
     <div v-if="isSignedIn">
       <amplify-sign-out></amplify-sign-out>
     </div>
-
-    <!--<p>isSignedIn: {{isSignedIn}}</p>-->
   </div>
 </template>
 
 <script>
 import { Auth } from 'aws-amplify';
 import { AmplifyEventBus } from 'aws-amplify-vue';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'Login',
-  data() {
-    return {
-      isSignedIn: Boolean
-    }
-  },
+  computed: mapGetters(['isSignedIn']),
   created() {
-    this.isSignedIn = false;
     this.findUser();
     
     AmplifyEventBus.$on('authState', info => {
-      if (info === "signedIn") {
-        // alert("AmplifyEvent - user found")
-        this.findUser();
-      }
-      else {
-        // alert("AmplifyEvent - user not found")
-        this.isSignedIn = false;
-      }
+      if (info === "signedIn") { this.findUser() }
+      else { this.setSignedIn(false) }
     });
-
   },
   methods: {
     async findUser() {
       try {
         const user = await Auth.currentAuthenticatedUser();
-        // alert("findUser - user found")
-        this.isSignedIn = true;
+        this.setSignedIn(true)
         console.log(user);
       }
       catch(err) {
-        // alert("findUser - user not found")
-        this.isSignedIn = false;
+        this.setSignedIn(false)
       }
-    }
+    },
+    ...mapActions(['setSignedIn'])
   }
 }
 </script>
