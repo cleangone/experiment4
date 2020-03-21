@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { Auth } from 'aws-amplify';
+// import { Auth } from 'aws-amplify';
 import { AmplifyEventBus } from 'aws-amplify-vue';
 import { mapGetters, mapActions } from 'vuex';
 
@@ -18,7 +18,8 @@ export default {
   name: 'Login',
   computed: mapGetters(['isSignedIn']),
   created() {
-    this.findUser();
+    // already called in app.created
+    // this.findUser();
     
     AmplifyEventBus.$on('authState', info => {
       if (info === "signedIn") { this.findUser() }
@@ -26,17 +27,17 @@ export default {
     });
   },
   methods: {
-    async findUser() {
-      try {
-        const user = await Auth.currentAuthenticatedUser();
-        this.setSignedIn(true)
-        console.log(user);
-      }
-      catch(err) {
-        this.setSignedIn(false)
-      }
-    },
-    ...mapActions(['setSignedIn'])
+    // async findUser() {
+    //   try {
+    //     const user = await Auth.currentAuthenticatedUser();
+    //     this.setSignedIn(true)
+    //     console.log(user);
+    //   }
+    //   catch(err) {
+    //     this.setSignedIn(false)
+    //   }
+    // },
+    ...mapActions(['findUser', 'setSignedIn'])
   }
 }
 </script>

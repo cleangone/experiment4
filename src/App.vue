@@ -20,12 +20,16 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
+
 export default {
   computed: mapGetters(['isSignedIn']),
   created() {
-    // alert("App created")
-  }
+    // alert("App created");
+    this.findUser();
+  },
+  methods: mapActions(['findUser'])
+  
 }
 </script>
 

@@ -1,3 +1,5 @@
+import { Auth } from 'aws-amplify';
+
 const state = {
     signedIn: Boolean
 };
@@ -8,8 +10,19 @@ const getters = {
 
 // actions: do an action and then call a mutation to mutate the state
 const actions = {
-    // setter has no-op action before mutating 
-    async setSignedIn ({ commit }, newValue) { commit('SET_SIGNED_IN', newValue) }
+    async findUser({ commit }) {
+      try {
+        const user = await Auth.currentAuthenticatedUser();
+        commit('SET_SIGNED_IN', true) 
+        console.log(user);
+      }
+      catch(e) {
+        commit('SET_SIGNED_IN', false) 
+      }
+    },
+    async setSignedIn ({ commit }, newValue) { 
+        commit('SET_SIGNED_IN', newValue) 
+    }
 };
 
 const mutations = {
