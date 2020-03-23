@@ -1,7 +1,6 @@
 <template>
   <div>
-      <p>Saagar</p>
-      <div id="vueapp" class="vue-app">
+     <div id="vueapp" class="vue-app">
         <kendo-mediaplayer v-on:kendoready="kendoready" v-on:timechange="timechange"
           style="width: 400px; height: 300px;"
           :media-title="'Saagars Radar'"

@@ -1,42 +1,32 @@
 <template>
-
   <div id="app">
     <div>
       <ul>
         <li>An AWS Amplify backend paired with a web frontend.</li>
         <li>Makes use of AWS Amplify, AWS AppSync, DynamoDB, Vue.js, Cloud 9 hosted IDE, Github</li>
       </ul>
-      <br>
     </div>
 
-    <div v-if="isSignedIn">
-      <!--<k-input v-model="newTrendName" :label="'New Trend'"></k-input>-->
-      <input v-model="newTrendName" placeholder="New Trend">
-      <kendo-button style="font-size:large" @click="createTrend(newTrendName)">Add</kendo-button>
-    </div>
-    
-    <div class="mx-auto flex mt-4">
+    <div class="mx-auto flex">
       <button v-for="(trend, index) in trends" v-bind:key="trend.id" @click="upVote(trend.id)"
-        v-bind:class="`focus:outline-none flex-1 h-max text-white text-sm sm:text-lg font-semibold py-2 px-2 mx-1 md:h-18 h-18 rounded bg-${trendColors[index]}-600 hover:bg-${trendColors[index]}-800`">
-        + {{trend.name}} ({{trend.upVotes}})
+        v-bind:class="`focus:outline-none flex-1 h-max text-white text-sm sm:text-lg font-semibold py-2 px-2 mx-1 md:h-18 h-18 bg-${trendColors[index]}-600 hover:bg-${trendColors[index]}-800`">
+        <font-awesome-icon icon="thumbs-up"/> ({{trend.upVotes}})
       </button>
     </div>
-    <div class="mx-auto flex mt-4">
+    <div class="mx-auto flex">
+      <button v-for="(trend, index) in trends" v-bind:key="trend.id"
+        v-bind:class="`focus:outline-none flex-1 h-max text-white text-sm sm:text-lg font-semibold py-2 px-2 mx-1 md:h-18 h-18 bg-${trendColors[index]}-600`">
+        {{trend.name}}
+      </button>
+    </div>
+    <div class="mx-auto flex">
       <button v-for="(trend, index) in trends" v-bind:key="trend.id" @click="downVote(trend.id)"
-        v-bind:class="`focus:outline-none flex-1 h-max text-white text-sm sm:text-lg font-semibold py-2 px-2 mx-1 md:h-18 h-18 rounded bg-${trendColors[index]}-600 hover:bg-${trendColors[index]}-800`">
-        - {{trend.name}} ({{trend.downVotes}})
+        v-bind:class="`focus:outline-none flex-1 h-max text-white text-sm sm:text-lg font-semibold py-2 px-2 mx-1 md:h-18 h-18 bg-${trendColors[index]}-600 hover:bg-${trendColors[index]}-800`">
+        <font-awesome-icon icon="thumbs-down"/> ({{trend.downVotes}})
       </button>
     </div>
 
     <VoteChart v-bind:chartData="chartData" width="200" height="110"></VoteChart>
-    
-    <div v-if="isSignedIn" class="mx-auto flex mt-4">
-      <button v-for="(trend, index) in trends" v-bind:key="trend.id" @click="deleteTrend(trend)"
-        v-bind:class="`focus:outline-none flex-1 h-max text-white text-sm sm:text-lg font-semibold py-2 px-2 mx-1 md:h-18 h-18 rounded bg-${trendColors[index]}-600 hover:bg-black`">
-        <p>Delete</p>{{trend.name}}
-      </button>
-    </div>
- 
   </div>
 </template>
 
@@ -82,12 +72,6 @@ export default {
     );
   },
   methods: {
-   createTrend(name) {
-      // alert ("createTrend " + name);
-      const todo = {name:name, upVotes:0, downVotes:0};
-      API.graphql(graphqlOperation(mutations.createTrend, { input: todo }));
-      this.newTrendName = '';
-    },
     upVote(id) {
       const voteInput = { id: id };
       API.graphql(graphqlOperation(mutations.upVote, { input: voteInput }));
@@ -95,14 +79,6 @@ export default {
     downVote(id) {
       const voteInput = { id: id };
       API.graphql(graphqlOperation(mutations.downVote, { input: voteInput }));
-    },
-    deleteTrend(trend) {
-      //alert ("deleteTrend " + trend.name);
-      this.$dialog.confirm("Delete " + trend.name + "?", { okText:'Delete', cancelText:'Cancel' })
-        .then(function() {
-          const deleteInput = { id: trend.id };
-          API.graphql(graphqlOperation(mutations.deleteTrend, { input: deleteInput }));
-        });
     }
   },
   mounted() {
@@ -141,11 +117,4 @@ export default {
 </script>
 
 <style scoped>
-input {
-  border: 2px solid silver;
-  margin: 1px 4px;
-  padding: 2px 2px;
-  height: 35px;
-  width: 140px;
-}
 </style>

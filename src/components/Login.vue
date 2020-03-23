@@ -10,7 +10,6 @@
 </template>
 
 <script>
-// import { Auth } from 'aws-amplify';
 import { AmplifyEventBus } from 'aws-amplify-vue';
 import { mapGetters, mapActions } from 'vuex';
 
@@ -18,9 +17,6 @@ export default {
   name: 'Login',
   computed: mapGetters(['isSignedIn']),
   created() {
-    // already called in app.created
-    // this.findUser();
-    
     AmplifyEventBus.$on('authState', info => {
       if (info === "signedIn") { this.findUser() }
       else { this.setSignedIn(false) }
