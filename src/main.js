@@ -12,7 +12,7 @@ import Trends from './components/Trends'
 import Admin from './components/Admin'
 import store from './store'
 import 'vuejs-dialog/dist/vuejs-dialog.min.css';
-import { BootstrapVue } from 'bootstrap-vue'
+// import { BootstrapVue } from 'bootstrap-vue'
 // import { BTableSimple } from 'bootstrap-vue'
 // import { library } from '@fortawesome/fontawesome-svg-core'
 // import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons'
@@ -43,7 +43,7 @@ const router = new VueRouter({
 
 
 // Install BootstrapVue - b-table-simple
-Vue.use(BootstrapVue)
+// Vue.use(BootstrapVue)
 // Vue.component('b-table-simple', BTableSimple)
 
 // library.add(faThumbsUp, faThumbsDown)
