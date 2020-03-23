@@ -59,7 +59,6 @@ export default {
       this.newTrendName = '';
     },
     deleteTrend(trend) {
-      //alert ("deleteTrend " + trend.name);
       this.$dialog.confirm("Delete " + trend.name + "?", { okText:'Delete', cancelText:'Cancel' })
         .then(function() {
           const deleteInput = { id: trend.id };
