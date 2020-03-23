@@ -10,8 +10,9 @@
     </div>
 
     <div v-if="isSignedIn">
+      <!--<k-input v-model="newTrendName" :label="'New Trend'"></k-input>-->
       <input v-model="newTrendName" placeholder="New Trend">
-      <button @click="createTrend(newTrendName)">Add</button>
+      <kendo-button style="font-size:large" @click="createTrend(newTrendName)">Add</kendo-button>
     </div>
     
     <div class="mx-auto flex mt-4">
@@ -46,9 +47,6 @@ import * as queries from "../graphql/queries";
 import * as mutations from "../graphql/mutations";
 import * as subscriptions from "../graphql/subscriptions";
 import { mapGetters } from 'vuex';
-
-
-
 
 const colorNames = ["red", "orange", "green", "blue"]
 const colorHex = ["#e53e3e", "#dd6b20", "#38a169", "#3182ce"]
@@ -147,6 +145,7 @@ input {
   border: 2px solid silver;
   margin: 1px 4px;
   padding: 2px 2px;
+  height: 35px;
   width: 140px;
 }
 </style>

@@ -13,6 +13,8 @@ import store from './store'
 import 'vuejs-dialog/dist/vuejs-dialog.min.css';
 import '@progress/kendo-ui'
 import '@progress/kendo-theme-default/dist/all.css'
+import { Button, ButtonsInstaller } from '@progress/kendo-buttons-vue-wrapper'
+import { Input } from '@progress/kendo-vue-inputs';
 import { MediaPlayer, MediaPlayerInstaller } from '@progress/kendo-mediaplayer-vue-wrapper'
 
 Amplify.configure(awsconfig)
@@ -32,13 +34,17 @@ const router = new VueRouter({
     mode: 'history'
 });
 
+// kendo
+Vue.use(ButtonsInstaller)
 Vue.use(MediaPlayerInstaller)
+Vue.component('k-input', Input);
+
 
 new Vue({
     router,
     store,
     components: {
-       MediaPlayer
+       Button, MediaPlayer
     },
     render: h => h(App),
 }).$mount('#app')
