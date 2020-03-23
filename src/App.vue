@@ -8,6 +8,8 @@
         <td align=right>
           <router-link to="/">Home</router-link>
           &nbsp; &nbsp;
+          <router-link to="/Video">Video</router-link>
+          &nbsp; &nbsp;
           <router-link to="/Login" v-if="!isSignedIn">Login</router-link>
           <router-link to="/Login" v-if="isSignedIn">Logout</router-link>
         </td>
@@ -25,7 +27,6 @@ import { mapGetters, mapActions } from 'vuex';
 export default {
   computed: mapGetters(['isSignedIn']),
   created() {
-    // alert("App created");
     this.findUser();
   },
   methods: mapActions(['findUser'])

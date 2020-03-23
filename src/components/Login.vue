@@ -27,16 +27,6 @@ export default {
     });
   },
   methods: {
-    // async findUser() {
-    //   try {
-    //     const user = await Auth.currentAuthenticatedUser();
-    //     this.setSignedIn(true)
-    //     console.log(user);
-    //   }
-    //   catch(err) {
-    //     this.setSignedIn(false)
-    //   }
-    // },
     ...mapActions(['findUser', 'setSignedIn'])
   }
 }
