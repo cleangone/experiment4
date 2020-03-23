@@ -1,0 +1,5 @@
+# Attempting to address javascript heap space issue in build 
+# /node_modules/* and /bower_components/* in the project root are ignored by default
+
+/node_modules/*
+/amplify/*
