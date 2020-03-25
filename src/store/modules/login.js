@@ -23,7 +23,7 @@ const actions = {
     async setSignedIn ({ commit }, newValue) { 
         commit('SET_SIGNED_IN', newValue) 
     }
-};
+}; 
 
 const mutations = {
     SET_SIGNED_IN: (state, newValue) => { state.signedIn = newValue }

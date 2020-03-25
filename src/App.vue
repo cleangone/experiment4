@@ -15,7 +15,6 @@
         </td>
         </tr>
     </table>
-
     <router-view/>
     <br>
   </div>
@@ -29,8 +28,9 @@ export default {
   created() {
     this.findUser();
   },
-  methods: mapActions(['findUser'])
-  
+  methods: mapActions(['findUser']),
+  mounted() {
+  }
 }
 </script>
 
