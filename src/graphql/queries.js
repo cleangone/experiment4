@@ -6,6 +6,7 @@ export const getTrend = /* GraphQL */ `
     getTrend(id: $id) {
       id
       name
+      video
       upVotes
       downVotes
     }
@@ -21,6 +22,7 @@ export const listTrends = /* GraphQL */ `
       items {
         id
         name
+        video
         upVotes
         downVotes
       }

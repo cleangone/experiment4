@@ -6,6 +6,7 @@ export const upVote = /* GraphQL */ `
     upVote(input: $input) {
       id
       name
+      video
       upVotes
       downVotes
     }
@@ -16,6 +17,7 @@ export const downVote = /* GraphQL */ `
     downVote(input: $input) {
       id
       name
+      video
       upVotes
       downVotes
     }
@@ -29,6 +31,7 @@ export const createTrend = /* GraphQL */ `
     createTrend(input: $input, condition: $condition) {
       id
       name
+      video
       upVotes
       downVotes
     }
@@ -42,6 +45,7 @@ export const updateTrend = /* GraphQL */ `
     updateTrend(input: $input, condition: $condition) {
       id
       name
+      video
       upVotes
       downVotes
     }
@@ -55,6 +59,7 @@ export const deleteTrend = /* GraphQL */ `
     deleteTrend(input: $input, condition: $condition) {
       id
       name
+      video
       upVotes
       downVotes
     }

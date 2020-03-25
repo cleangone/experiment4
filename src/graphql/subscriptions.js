@@ -6,6 +6,7 @@ export const onUpVote = /* GraphQL */ `
     onUpVote {
       id
       name
+      video
       upVotes
       downVotes
     }
@@ -16,6 +17,7 @@ export const onDownVote = /* GraphQL */ `
     onDownVote {
       id
       name
+      video
       upVotes
       downVotes
     }
@@ -26,6 +28,7 @@ export const onCreateTrend = /* GraphQL */ `
     onCreateTrend {
       id
       name
+      video
       upVotes
       downVotes
     }
@@ -36,6 +39,7 @@ export const onUpdateTrend = /* GraphQL */ `
     onUpdateTrend {
       id
       name
+      video
       upVotes
       downVotes
     }
@@ -46,6 +50,7 @@ export const onDeleteTrend = /* GraphQL */ `
     onDeleteTrend {
       id
       name
+      video
       upVotes
       downVotes
     }

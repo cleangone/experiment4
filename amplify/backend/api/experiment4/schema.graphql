@@ -1,6 +1,7 @@
 type Trend @model {
   id: ID!
   name: String!
+  video: String
   upVotes: Int!
   downVotes: Int!
 }
