@@ -13,10 +13,9 @@ import Admin from './components/Admin'
 import store from './store'
 import 'vuejs-dialog/dist/vuejs-dialog.min.css';
 import { BootstrapVue } from 'bootstrap-vue'
-// import { BTableSimple } from 'bootstrap-vue'
-// import { library } from '@fortawesome/fontawesome-svg-core'
-// import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons'
-// import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import '@progress/kendo-ui'
 import '@progress/kendo-theme-default/dist/all.css'
 //import { Button, ButtonsInstaller } from '@progress/kendo-buttons-vue-wrapper'
@@ -44,10 +43,9 @@ const router = new VueRouter({
 
 // Install BootstrapVue - b-table-simple
 Vue.use(BootstrapVue)
-// Vue.component('b-table-simple', BTableSimple)
 
-// library.add(faThumbsUp, faThumbsDown)
-// Vue.component('font-awesome-icon', FontAwesomeIcon)
+library.add(faThumbsUp, faThumbsDown)
+Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 // kendo
 Vue.use(ButtonsInstaller)

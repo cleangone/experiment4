@@ -10,8 +10,8 @@
     <div class="mx-auto flex">
       <button v-for="(trend, index) in getTrends" v-bind:key="trend.id" @click="upVote(trend.id)"
         v-bind:class="`focus:outline-none flex-1 h-max text-white text-sm sm:text-lg font-semibold py-2 px-2 mx-1 md:h-18 h-18 bg-${trendColors[index]}-600 hover:bg-${trendColors[index]}-800`">
-        <!--<font-awesome-icon icon="thumbs-up"/>-->
-        + ({{trend.upVotes}})
+        <font-awesome-icon icon="thumbs-up"/>
+        ({{trend.upVotes}})
       </button>
     </div>
     <div class="mx-auto flex">
@@ -23,8 +23,8 @@
     <div class="mx-auto flex">
       <button v-for="(trend, index) in getTrends" v-bind:key="trend.id" @click="downVote(trend.id)"
         v-bind:class="`focus:outline-none flex-1 h-max text-white text-sm sm:text-lg font-semibold py-2 px-2 mx-1 md:h-18 h-18 bg-${trendColors[index]}-600 hover:bg-${trendColors[index]}-800`">
-        <!--<font-awesome-icon icon="thumbs-down"/> -->
-        - ({{trend.downVotes}})
+        <font-awesome-icon icon="thumbs-down"/> 
+        ({{trend.downVotes}})
       </button>
     </div>
 
