@@ -8,26 +8,23 @@
     </div>
 
     <div class="mx-auto flex">
-      <button v-for="(trend, index) in getTrends" v-bind:key="trend.id" @click="upVote(trend.id)"
-        v-bind:class="`focus:outline-none flex-1 h-max text-white text-sm sm:text-lg font-semibold py-2 px-2 mx-1 md:h-18 h-18 bg-${trendColors[index]}-600 hover:bg-${trendColors[index]}-800`">
-        <font-awesome-icon icon="thumbs-up"/>
-        ({{trend.upVotes}})
-      </button>
-    </div>
-    <div class="mx-auto flex">
-      <button v-for="(trend, index) in getTrends" v-bind:key="trend.id"
-        v-bind:class="`focus:outline-none flex-1 h-max text-white text-sm sm:text-lg font-semibold py-2 px-2 mx-1 md:h-18 h-18 bg-${trendColors[index]}-600`">
-        {{trend.name}}
-      </button>
-    </div>
-    <div class="mx-auto flex">
-      <button v-for="(trend, index) in getTrends" v-bind:key="trend.id" @click="downVote(trend.id)"
-        v-bind:class="`focus:outline-none flex-1 h-max text-white text-sm sm:text-lg font-semibold py-2 px-2 mx-1 md:h-18 h-18 bg-${trendColors[index]}-600 hover:bg-${trendColors[index]}-800`">
-        <font-awesome-icon icon="thumbs-down"/> 
-        ({{trend.downVotes}})
-      </button>
-    </div>
+      <span v-for="(trend, index) in getTrends" v-bind:key="trend.id"
+        v-bind:class="`focus:outline-none flex-1 h-max text-white text-sm sm:text-lg font-semibold px-1 py-1 mx-1 md:h-18 h-18 bg-${trendColors[index]}-600`">
 
+        <div class="trend">
+          <button @click="upVote(trend.id)" v-bind:class="`px-1 py-1 hover:bg-${trendColors[index]}-800`">
+            <font-awesome-icon icon="thumbs-up"/> ({{trend.upVotes}})
+          </button>
+        </div>
+        <div class="trend">{{trend.name}}</div>
+        <div class="trend">
+          <button @click="downVote(trend.id)" v-bind:class="`px-1 py-1 hover:bg-${trendColors[index]}-800`">
+            <font-awesome-icon icon="thumbs-down"/> ({{trend.downVotes}})
+          </button>
+        </div>
+      </span>
+    </div>
+      
     <VoteChart v-bind:chartData="chartData" width="200" height="110"></VoteChart>
     <TrendListener></TrendListener>
   </div>
@@ -82,4 +79,7 @@ export default {
 </script>
 
 <style scoped>
+div.trend {
+  text-align: center;
+}
 </style>
