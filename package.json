@@ -12,6 +12,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
     "@fortawesome/vue-fontawesome": "^0.1.9",
     "@progress/kendo-buttons-vue-wrapper": "^2020.1.305",
+    "@progress/kendo-mediaplayer-vue-wrapper": "^2020.1.305",
     "@progress/kendo-theme-default": "^4.14.0",
     "@progress/kendo-ui": "^2020.1.219",
     "@progress/kendo-vue-intl": "^0.5.0",

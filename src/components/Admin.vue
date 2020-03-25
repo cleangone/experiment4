@@ -21,7 +21,12 @@
             <b-td>{{trend.upVotes}}</b-td>
             <b-td>{{trend.downVotes}}</b-td>
             <b-td>
-              <kendo-button style="font-size:large" @click="deleteTrend(trend)">Delete</kendo-button>
+              <span class="pointer">
+                <font-awesome-icon icon="edit"/>
+              </span>
+              <span class="pointer">
+                <font-awesome-icon icon="trash" @click="deleteTrend(trend)"/>
+              </span>
             </b-td>
           </b-tr>
         </b-tbody>
@@ -70,5 +75,9 @@ input {
   padding: 2px 2px;
   height: 35px;
   width: 140px;
+}
+span.pointer {
+  cursor: pointer;
+  margin-right: 10px;
 }
 </style>
