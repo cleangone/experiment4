@@ -10,17 +10,17 @@
         </b-thead>
         <b-tbody>
           <b-tr>
-            <b-td><input v-model="newTrendName" placeholder="New Trend"></b-td>
-            <b-td></b-td>
+            <b-td><input v-model="newName" placeholder="New Trend"></b-td>
+            <b-td><input class="large" v-model="newVideo" placeholder="Video URL"></b-td>
             <b-td></b-td>
             <b-td></b-td>
             <b-td>
-              <kendo-button style="font-size:large" @click="createTrend(newTrendName)">Add</kendo-button>
+              <kendo-button style="font-size:large" @click="createTrend()">Add</kendo-button>
             </b-td>
           </b-tr>
           <b-tr role="row" v-for="trend in getTrends" :key="trend.id">
             <b-td>{{trend.name}}</b-td>
-            <b-td></b-td>
+            <b-td>{{trend.video}}</b-td>
             <b-td>{{trend.upVotes}}</b-td>
             <b-td>{{trend.downVotes}}</b-td>
             <b-td>
@@ -54,10 +54,11 @@ export default {
     this.retrieveTrends();
   },
   methods: {
-    createTrend(name) {
-      const trend = {name:name, upVotes:0, downVotes:0};
+    createTrend() {
+      const trend = {name:this.newName, video:this.newVideo, upVotes:0, downVotes:0};
       API.graphql(graphqlOperation(mutations.createTrend, { input: trend }));
-      this.newTrendName = '';
+      this.newName = '';
+      this.newVideo = '';
     },
     deleteTrend(trend) {
       this.$dialog.confirm("Delete " + trend.name + "?", { okText:'Delete', cancelText:'Cancel' })
@@ -79,6 +80,11 @@ input {
   height: 35px;
   width: 140px;
 }
+
+.large {
+  width: 250px;
+}
+
 span.pointer {
   cursor: pointer;
   margin-right: 10px;
