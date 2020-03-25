@@ -3,6 +3,7 @@
     <b-table-simple striped hover>
         <b-thead>
           <b-th>Name</b-th>
+          <b-th>Video</b-th>
           <b-th>Up</b-th>
           <b-th>Down</b-th>
           <b-th></b-th>
@@ -12,12 +13,14 @@
             <b-td><input v-model="newTrendName" placeholder="New Trend"></b-td>
             <b-td></b-td>
             <b-td></b-td>
+            <b-td></b-td>
             <b-td>
               <kendo-button style="font-size:large" @click="createTrend(newTrendName)">Add</kendo-button>
             </b-td>
           </b-tr>
           <b-tr role="row" v-for="trend in getTrends" :key="trend.id">
             <b-td>{{trend.name}}</b-td>
+            <b-td></b-td>
             <b-td>{{trend.upVotes}}</b-td>
             <b-td>{{trend.downVotes}}</b-td>
             <b-td>
