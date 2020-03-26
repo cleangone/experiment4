@@ -18,7 +18,7 @@
         </div>
         <div class="trend">
           <span v-if="trend.video==null" v-bind:class="`px-1 py-1`">{{trend.name}}</span> 
-          <button v-if="trend.video!=null" @click="openDialog" v-bind:class="`px-1 py-1 hover:bg-${trendColors[index]}-800`">
+          <button v-if="trend.video!=null" @click="openDialog(trend)" v-bind:class="`px-1 py-1 hover:bg-${trendColors[index]}-800`">
             {{trend.name}} <font-awesome-icon icon="play-circle"/>
           </button>
         </div>
@@ -34,12 +34,15 @@
     <TrendListener></TrendListener>
     
     <md-dialog v-bind:md-active.sync="showDialog">
-      <kendo-mediaplayer v-on:kendoready="kendoready" v-on:timechange="timechange"
-        style="width: 400px; height: 300px;"
-        :auto-play='true'
-        :media-title="'Saagar'"
-        :media-source="'https://www.youtube.com/watch?v=qFf3HTo8Kzw&t=437s'">
-      </kendo-mediaplayer>
+      <kendo-mediaplayer class="mediaplayer" v-on:kendoready="kendoready" v-on:timechange="timechange"
+        :auto-play='true' :media-title="dialogTrend.name" :media-source="dialogTrend.video"/>
+ 
+        <button @click="upVoteDialog">
+          <font-awesome-icon icon="thumbs-up"/> ({{dialogTrend.upVotes}})
+        </button>
+        <button @click="downVoteDialog">
+          <font-awesome-icon icon="thumbs-down"/> ({{dialogTrend.downVotes}})
+        </button>
     </md-dialog>
     
   </div>
@@ -64,7 +67,8 @@ export default {
   },
   data: () => ({
     trendColors: colors,
-    showDialog: false
+    showDialog: false,
+    dialogTrend: {}
   }),
   computed: {
     chartData: function() {
@@ -90,8 +94,13 @@ export default {
       const voteInput = { id: id };
       API.graphql(graphqlOperation(mutations.downVote, { input: voteInput }));
     },
-    openDialog() { this.showDialog = true },
+    openDialog(trend) { 
+      this.dialogTrend = trend;
+      this.showDialog = true;
+    },
     closeDialog() { this.showDialog = false },
+    upVoteDialog() { this.upVote(this.dialogTrend.id) },
+    downVoteDialog() { this.downVote(this.dialogTrend.id) },
     ...mapActions(['retrieveTrends']) 
   }
 };
@@ -102,6 +111,10 @@ export default {
   text-align: center;
 }
 .md-dialog {
-  max-width: 500px;
+  max-width: 600px;
+}
+.mediaplayer {
+  width: 600px; 
+  height: 400px;
 }
 </style>
