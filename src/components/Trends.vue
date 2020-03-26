@@ -74,13 +74,23 @@ export default {
   }),
   computed: {
     chartData: function() {
+      var chartTrends = []
+      for (var i=0; i<this.getTrends.length; i++) {
+        const t = this.getTrends[i]
+        const votes = t.upVotes - t.downVotes
+        chartTrends.push({name:t.name + "(" + votes + ")", votes:votes, color:backgroundColors[i]});
+      } 
+      
+      // sort most popular first
+      chartTrends.sort((a, b) => (b.votes - a.votes));
       return {
-        labels: this.getTrends.map(trend => trend.name),
+        labels: chartTrends.map(trend => trend.name),
         datasets: [{
             label: false,
-            data: this.getTrends.map(trend => trend.upVotes - trend.downVotes),
-            backgroundColor: backgroundColors
-          }]};
+            data: chartTrends.map(trend => trend.votes),
+            backgroundColor: chartTrends.map(trend => trend.color),
+          }]
+      };
     },
     ...mapGetters(['getTrends'])
   },
