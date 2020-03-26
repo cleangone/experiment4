@@ -6,27 +6,26 @@
         <li>Makes use of AWS Amplify, AWS AppSync, DynamoDB, Vue.js, Cloud 9 hosted IDE, Github</li>
       </ul>
     </div>
-    
+
     <div class="mx-auto flex">
-      <span v-for="(trend, index) in getTrends" v-bind:key="trend.id"
-        v-bind:class="`focus:outline-none flex-1 h-max text-white text-sm sm:text-lg font-semibold px-1 py-1 mx-1 md:h-18 h-18 bg-${trendColors[index]}-600`">
-
-
+      <span class="colorbox" v-for="(trend, index) in getTrends" v-bind:key="trend.id"
+        v-bind:class="`focus:outline-none flex-1 h-max text-white text-sm sm:text-lg font-semibold px-1 py-1 mx-1 md:h-18 h-18`"
+        v-bind:style="{ backgroundColor: trendColors[index]}">
+        
         <div class="trend">
-          <button @click="upVote(trend.id)" v-bind:class="`px-1 py-1 hover:bg-${trendColors[index]}-800`">
+          <button @click="upVote(trend.id)" v-bind:class="`px-1 py-1`">
             <font-awesome-icon icon="thumbs-up"/> ({{trend.upVotes}})
           </button>
         </div>
         <div class="trend">
           <span v-if="trend.video==null" v-bind:class="`px-1 py-1`">{{trend.name}}</span> 
-          <button v-if="trend.video!=null" @click="openDialog(trend)" 
-            v-bind:class="`py-1 hover:bg-${trendColors[index]}-800`">
+          <button v-if="trend.video!=null" @click="openDialog(trend)" v-bind:class="`py-1`">
             <img :src="'https://img.youtube.com/vi/' + trend.video + '/0.jpg'">
             {{trend.name}} <font-awesome-icon icon="play-circle"/>
           </button>
         </div>
         <div class="trend">
-          <button @click="downVote(trend.id)" v-bind:class="`px-1 py-1 hover:bg-${trendColors[index]}-800`">
+          <button @click="downVote(trend.id)" v-bind:class="`px-1 py-1`">
             <font-awesome-icon icon="thumbs-down"/> ({{trend.downVotes}})
           </button>
         </div>
@@ -58,10 +57,8 @@ import { API, graphqlOperation } from "aws-amplify";
 import { mapGetters, mapActions } from 'vuex';
 import * as mutations from "../graphql/mutations";
 
-const colorNames = ["red", "orange", "yellow", "green", "blue", "indigo", "gray"]
-const colorHex = ["#e53e3e", "#dd6b20", "#D69E2E", "#38a169", "#3182ce", "#5A67D8", "#718096"]
+const colorNames = ["crimson", "chocolate", "goldenrod", "green", "mediumblue", "indigo", "darkviolet"]
 const colors = colorNames.concat(colorNames)
-const backgroundColors = colorHex.concat(colorHex)
 
 export default {
   components: { 
@@ -80,7 +77,7 @@ export default {
         const t = this.getTrends[i]
         const words = t.name.split(" ");
         const votes = t.upVotes - t.downVotes
-        chartTrends.push({name:words[0] + "(" + votes + ")", votes:votes, color:backgroundColors[i]});
+        chartTrends.push({name:words[0] + "(" + votes + ")", votes:votes, color:colors[i]});
       } 
       
       // sort most popular first
@@ -119,6 +116,11 @@ export default {
 </script>
 
 <style scoped>
+
+.colorbox {
+  text-align: center;
+}
+
 .trend {
   text-align: center;
 }
