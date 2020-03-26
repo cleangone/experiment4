@@ -37,18 +37,12 @@
     
     <md-dialog v-bind:md-active.sync="showDialog">
       <kendo-mediaplayer class="mediaplayer" v-on:kendoready="kendoready" v-on:timechange="timechange"
-        :auto-play='true' :media-title="dialogTrend.name" 
-        :media-source="dialogSource"/>
- 
-        <!--https://www.youtube.com/watch?v=yqS5T2PgDDo-->
- 
-         <!--<img :src="'http://img.youtube.com/vi/' + trend.video + '/0.jpg'">-->
-
- 
-        <button @click="upVoteDialog">
+          :auto-play='true' :media-title="dialogTrend.name" 
+          :media-source="`https://www.youtube.com/watch?v=${dialogTrend.video}`"/>
+        <button @click="upVote(dialogTrend.id)">
           <font-awesome-icon icon="thumbs-up"/> ({{dialogTrend.upVotes}})
         </button>
-        <button @click="downVoteDialog">
+        <button @click="downVote(dialogTrend.id)">
           <font-awesome-icon icon="thumbs-down"/> ({{dialogTrend.downVotes}})
         </button>
     </md-dialog>
@@ -76,8 +70,7 @@ export default {
   data: () => ({
     trendColors: colors,
     showDialog: false,
-    dialogTrend: {},
-    dialogSource: null
+    dialogTrend: {}
   }),
   computed: {
     chartData: function() {
@@ -105,12 +98,9 @@ export default {
     },
     openDialog(trend) { 
       this.dialogTrend = trend;
-      this.dialogSource = "https://www.youtube.com/watch?v=" + trend.video;
       this.showDialog = true;
     },
     closeDialog() { this.showDialog = false },
-    upVoteDialog() { this.upVote(this.dialogTrend.id) },
-    downVoteDialog() { this.downVote(this.dialogTrend.id) },
     ...mapActions(['retrieveTrends']) 
   }
 };
