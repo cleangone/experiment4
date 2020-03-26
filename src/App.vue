@@ -7,7 +7,6 @@
         </td>
         <td align=right>
           <router-link to="/">Home</router-link>
-          &nbsp; &nbsp;<router-link to="/Video">Video</router-link>
           &nbsp; &nbsp;<router-link to="/Admin" v-if="isSignedIn">Admin</router-link>
           &nbsp; &nbsp;
           <router-link to="/Login" v-if="!isSignedIn">Login</router-link>
