@@ -3,7 +3,7 @@
     <b-table-simple striped hover>
         <b-thead>
           <b-th>Name</b-th>
-          <b-th>Video</b-th>
+          <b-th>Video ID</b-th>
           <b-th>Up</b-th>
           <b-th>Down</b-th>
           <b-th></b-th>
@@ -11,7 +11,7 @@
         <b-tbody>
           <b-tr>
             <b-td><input v-model="newName" placeholder="New Trend"></b-td>
-            <b-td><input class="large" v-model="newVideo" placeholder="Video URL"></b-td>
+            <b-td><input class="large" v-model="newVideo" placeholder="YouTube Video ID"></b-td>
             <b-td></b-td>
             <b-td></b-td>
             <b-td>

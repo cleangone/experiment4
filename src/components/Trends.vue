@@ -18,7 +18,9 @@
         </div>
         <div class="trend">
           <span v-if="trend.video==null" v-bind:class="`px-1 py-1`">{{trend.name}}</span> 
-          <button v-if="trend.video!=null" @click="openDialog(trend)" v-bind:class="`px-1 py-1 hover:bg-${trendColors[index]}-800`">
+          <button v-if="trend.video!=null" @click="openDialog(trend)" 
+            v-bind:class="`py-1 hover:bg-${trendColors[index]}-800`">
+            <img :src="'https://img.youtube.com/vi/' + trend.video + '/0.jpg'">
             {{trend.name}} <font-awesome-icon icon="play-circle"/>
           </button>
         </div>
@@ -35,7 +37,13 @@
     
     <md-dialog v-bind:md-active.sync="showDialog">
       <kendo-mediaplayer class="mediaplayer" v-on:kendoready="kendoready" v-on:timechange="timechange"
-        :auto-play='true' :media-title="dialogTrend.name" :media-source="dialogTrend.video"/>
+        :auto-play='true' :media-title="dialogTrend.name" 
+        :media-source="dialogSource"/>
+ 
+        <!--https://www.youtube.com/watch?v=yqS5T2PgDDo-->
+ 
+         <!--<img :src="'http://img.youtube.com/vi/' + trend.video + '/0.jpg'">-->
+
  
         <button @click="upVoteDialog">
           <font-awesome-icon icon="thumbs-up"/> ({{dialogTrend.upVotes}})
@@ -68,7 +76,8 @@ export default {
   data: () => ({
     trendColors: colors,
     showDialog: false,
-    dialogTrend: {}
+    dialogTrend: {},
+    dialogSource: null
   }),
   computed: {
     chartData: function() {
@@ -96,6 +105,7 @@ export default {
     },
     openDialog(trend) { 
       this.dialogTrend = trend;
+      this.dialogSource = "https://www.youtube.com/watch?v=" + trend.video;
       this.showDialog = true;
     },
     closeDialog() { this.showDialog = false },
@@ -116,5 +126,9 @@ export default {
 .mediaplayer {
   width: 600px; 
   height: 400px;
+}
+.mediaplayersmall {
+  width: 60px; 
+  height: 40px;
 }
 </style>
