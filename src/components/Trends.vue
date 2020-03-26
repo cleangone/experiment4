@@ -11,6 +11,7 @@
       <span v-for="(trend, index) in getTrends" v-bind:key="trend.id"
         v-bind:class="`focus:outline-none flex-1 h-max text-white text-sm sm:text-lg font-semibold px-1 py-1 mx-1 md:h-18 h-18 bg-${trendColors[index]}-600`">
 
+
         <div class="trend">
           <button @click="upVote(trend.id)" v-bind:class="`px-1 py-1 hover:bg-${trendColors[index]}-800`">
             <font-awesome-icon icon="thumbs-up"/> ({{trend.upVotes}})
@@ -57,8 +58,8 @@ import { API, graphqlOperation } from "aws-amplify";
 import { mapGetters, mapActions } from 'vuex';
 import * as mutations from "../graphql/mutations";
 
-const colorNames = ["red", "orange", "green", "blue"]
-const colorHex = ["#e53e3e", "#dd6b20", "#38a169", "#3182ce"]
+const colorNames = ["red", "orange", "yellow", "green", "blue", "indigo", "gray"]
+const colorHex = ["#e53e3e", "#dd6b20", "#D69E2E", "#38a169", "#3182ce", "#5A67D8", "#718096"]
 const colors = colorNames.concat(colorNames)
 const backgroundColors = colorHex.concat(colorHex)
 
@@ -77,8 +78,9 @@ export default {
       var chartTrends = []
       for (var i=0; i<this.getTrends.length; i++) {
         const t = this.getTrends[i]
+        const words = t.name.split(" ");
         const votes = t.upVotes - t.downVotes
-        chartTrends.push({name:t.name + "(" + votes + ")", votes:votes, color:backgroundColors[i]});
+        chartTrends.push({name:words[0] + "(" + votes + ")", votes:votes, color:backgroundColors[i]});
       } 
       
       // sort most popular first
