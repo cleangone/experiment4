@@ -4,6 +4,7 @@
         <b-thead>
           <b-th>Name</b-th>
           <b-th>Video ID</b-th>
+          <b-th>User</b-th>
           <b-th>Up</b-th>
           <b-th>Down</b-th>
           <b-th></b-th>
@@ -14,13 +15,15 @@
             <b-td><input class="large" v-model="newVideo" placeholder="YouTube Video ID"></b-td>
             <b-td></b-td>
             <b-td></b-td>
+            <b-td></b-td>
             <b-td>
-              <kendo-button style="font-size:large" @click="createTrend()">Add</kendo-button>
+              <kendo-button style="font-size:large" @click="createTrend(getUserId)">Add</kendo-button>
             </b-td>
           </b-tr>
           <b-tr role="row" v-for="trend in getTrends" :key="trend.id">
             <b-td>{{trend.name}}</b-td>
             <b-td>{{trend.video}}</b-td>
+            <b-td>{{trend.userId}}</b-td>
             <b-td>{{trend.upVotes}}</b-td>
             <b-td>{{trend.downVotes}}</b-td>
             <b-td>
@@ -49,13 +52,13 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 export default {
   name: 'Admin',
   components: { TrendListener },
-  computed: mapGetters(['getTrends']),
+  computed: mapGetters(['getTrends', 'getUserId']),
   async created() {
     this.retrieveTrends();
   },
   methods: {
-    createTrend() {
-      const trend = {name:this.newName, video:this.newVideo, upVotes:0, downVotes:0};
+    createTrend(userId) {
+      const trend = {name:this.newName, video:this.newVideo, userId:userId, upVotes:0, downVotes:0};
       API.graphql(graphqlOperation(mutations.createTrend, { input: trend }));
       this.newName = '';
       this.newVideo = '';
@@ -67,6 +70,37 @@ export default {
           API.graphql(graphqlOperation(mutations.deleteTrend, { input: deleteInput }));
         });
     },
+
+//     getUser(userId) {
+      
+      
+//       createPatient = async () => {
+//     var params = { 
+//       UserPoolId: 'xxxxxxxxxxxxxxxxxxxx', 
+//       AttributesToGet: [ "email" ],
+//       Filter: "",
+//       Limit: 10
+//   };
+
+//   var identityService = new AWS.CognitoIdentityServiceProvider();
+//       identityService.listUsers(params, function(err, data) {
+//         if (err) console.log(err, err.stack); // an error occurred
+//         else     console.log(data);         // successful response
+//       })
+// }
+      
+      
+      
+    //   // Auth.
+    //   this.$dialog.confirm("Delete " + trend.name + "?", { okText:'Delete', cancelText:'Cancel' })
+    //     .then(function() {
+    //       const deleteInput = { id: trend.id };
+    //       API.graphql(graphqlOperation(mutations.deleteTrend, { input: deleteInput }));
+    //     });
+    // },
+
+
+
     ...mapActions(['retrieveTrends']) 
   }
 }

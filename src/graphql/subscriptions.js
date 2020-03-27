@@ -9,6 +9,7 @@ export const onUpVote = /* GraphQL */ `
       video
       upVotes
       downVotes
+      userId
     }
   }
 `;
@@ -20,6 +21,7 @@ export const onDownVote = /* GraphQL */ `
       video
       upVotes
       downVotes
+      userId
     }
   }
 `;
@@ -31,6 +33,7 @@ export const onCreateTrend = /* GraphQL */ `
       video
       upVotes
       downVotes
+      userId
     }
   }
 `;
@@ -42,6 +45,7 @@ export const onUpdateTrend = /* GraphQL */ `
       video
       upVotes
       downVotes
+      userId
     }
   }
 `;
@@ -53,6 +57,31 @@ export const onDeleteTrend = /* GraphQL */ `
       video
       upVotes
       downVotes
+      userId
+    }
+  }
+`;
+export const onCreateUser = /* GraphQL */ `
+  subscription OnCreateUser {
+    onCreateUser {
+      id
+      nickname
+    }
+  }
+`;
+export const onUpdateUser = /* GraphQL */ `
+  subscription OnUpdateUser {
+    onUpdateUser {
+      id
+      nickname
+    }
+  }
+`;
+export const onDeleteUser = /* GraphQL */ `
+  subscription OnDeleteUser {
+    onDeleteUser {
+      id
+      nickname
     }
   }
 `;

@@ -9,6 +9,7 @@ export const getTrend = /* GraphQL */ `
       video
       upVotes
       downVotes
+      userId
     }
   }
 `;
@@ -25,6 +26,30 @@ export const listTrends = /* GraphQL */ `
         video
         upVotes
         downVotes
+        userId
+      }
+      nextToken
+    }
+  }
+`;
+export const getUser = /* GraphQL */ `
+  query GetUser($id: ID!) {
+    getUser(id: $id) {
+      id
+      nickname
+    }
+  }
+`;
+export const listUsers = /* GraphQL */ `
+  query ListUsers(
+    $filter: ModelUserFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        nickname
       }
       nextToken
     }

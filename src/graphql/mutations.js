@@ -9,6 +9,7 @@ export const upVote = /* GraphQL */ `
       video
       upVotes
       downVotes
+      userId
     }
   }
 `;
@@ -20,6 +21,7 @@ export const downVote = /* GraphQL */ `
       video
       upVotes
       downVotes
+      userId
     }
   }
 `;
@@ -34,6 +36,7 @@ export const createTrend = /* GraphQL */ `
       video
       upVotes
       downVotes
+      userId
     }
   }
 `;
@@ -48,6 +51,7 @@ export const updateTrend = /* GraphQL */ `
       video
       upVotes
       downVotes
+      userId
     }
   }
 `;
@@ -62,6 +66,40 @@ export const deleteTrend = /* GraphQL */ `
       video
       upVotes
       downVotes
+      userId
+    }
+  }
+`;
+export const createUser = /* GraphQL */ `
+  mutation CreateUser(
+    $input: CreateUserInput!
+    $condition: ModelUserConditionInput
+  ) {
+    createUser(input: $input, condition: $condition) {
+      id
+      nickname
+    }
+  }
+`;
+export const updateUser = /* GraphQL */ `
+  mutation UpdateUser(
+    $input: UpdateUserInput!
+    $condition: ModelUserConditionInput
+  ) {
+    updateUser(input: $input, condition: $condition) {
+      id
+      nickname
+    }
+  }
+`;
+export const deleteUser = /* GraphQL */ `
+  mutation DeleteUser(
+    $input: DeleteUserInput!
+    $condition: ModelUserConditionInput
+  ) {
+    deleteUser(input: $input, condition: $condition) {
+      id
+      nickname
     }
   }
 `;

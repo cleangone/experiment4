@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import login from './modules/login'
 import trends from './modules/trendStore'
+// import user from './modules/userStore'
 
 Vue.use(Vuex);
 
@@ -9,6 +10,7 @@ export default new Vuex.Store({
     modules: {
         login,
         trends
+        // user
     }
 });
   

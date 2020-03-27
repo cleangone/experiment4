@@ -21,7 +21,7 @@
           <span v-if="trend.video==null" v-bind:class="`px-1 py-1`">{{trend.name}}</span> 
           <button v-if="trend.video!=null" @click="openDialog(trend)" v-bind:class="`py-1`">
             <img :src="'https://img.youtube.com/vi/' + trend.video + '/0.jpg'">
-            {{trend.name}} <font-awesome-icon icon="play-circle"/>
+            {{trend.name}}
           </button>
         </div>
         <div class="trend">

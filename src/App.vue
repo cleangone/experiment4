@@ -10,7 +10,7 @@
           &nbsp; &nbsp;<router-link to="/Admin" v-if="isSignedIn">Admin</router-link>
           &nbsp; &nbsp;
           <router-link to="/Login" v-if="!isSignedIn">Login</router-link>
-          <router-link to="/Login" v-if="isSignedIn">Logout</router-link>
+          <router-link to="/Login" v-if="isSignedIn">Account</router-link>
         </td>
         </tr>
     </table>

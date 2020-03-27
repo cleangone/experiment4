@@ -4,6 +4,12 @@ type Trend @model {
   video: String
   upVotes: Int!
   downVotes: Int!
+  userId: String
+}
+
+type User @model {
+  id: ID!
+  nickname: String!
 }
 
 input CastVoteInput {
