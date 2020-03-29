@@ -1,8 +1,5 @@
 <template>
   <div class="login">
-    <div v-if="!isSignedIn">
-      <amplify-authenticator></amplify-authenticator>
-    </div>
     <div v-if="isSignedIn">
       <br>
       
@@ -13,6 +10,13 @@
       <br><br>
       <amplify-sign-out></amplify-sign-out>
     </div>
+    <div v-else>
+    <!--<div v-if="!isSignedIn">-->
+      <amplify-authenticator></amplify-authenticator>
+    </div>
+
+    
+   
   </div>
 </template>
 
