@@ -18,6 +18,7 @@ const actions = {
     },
     async setTrends ({ commit }, newTrends) { commit('SET_TRENDS', newTrends) },
     async addStoredTrend ({ commit }, trend) { commit('ADD_TREND', trend) },
+    async updateStoredTrend ({ commit }, trend) { commit('UPDATE_TREND', trend) },
     async deleteStoredTrend ({ commit }, trend) { commit('DELETE_TREND', trend) },
     async addStoredUpVote ({ commit }, trend) { commit('ADD_UP_VOTE', trend) },
     async addStoredDownVote ({ commit }, trend) { commit('ADD_DOWN_VOTE', trend) }
@@ -33,6 +34,14 @@ const mutations = {
         if (stateTrend == null) {
             state.trends.push(addedTrend);
             state.trends.sort((a, b) => a.name.localeCompare(b.name));
+        }
+    },
+    UPDATE_TREND: (state, updatedTrend) => { 
+        const stateTrend = state.trends.find(trend => trend.id === updatedTrend.id);
+        if (stateTrend != null) {
+            stateTrend.name = updatedTrend.name
+            stateTrend.video = updatedTrend.video
+            stateTrend.userId = updatedTrend.userId
         }
     },
     DELETE_TREND: (state, deletedTrend) => { 
