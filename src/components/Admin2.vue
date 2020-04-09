@@ -46,12 +46,9 @@
 </template>
 
 <script>
-import { 
-  mdbContainer, mdbRow, mdbCol, mdbBtn,
-  mdbInput,
+import { mdbContainer, mdbRow, mdbCol, mdbBtn,mdbInput,
   mdbModal, mdbModalHeader, mdbModalTitle, mdbModalBody, mdbModalFooter } 
   from "mdbvue";
-  
 import AdminItem from "./AdminItem";
 
 export default {

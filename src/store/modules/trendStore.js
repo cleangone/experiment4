@@ -6,7 +6,10 @@ const state = {
 };
 
 const getters = {
-    getTrends:(state) => { return state.trends }
+    getTrends:(state) => { return state.trends },
+    getTrendsByUserId:(state) => (userId) => { 
+        return (userId == null ? state.trends : state.trends.filter(trend => trend.userId === userId))
+    }
 };
 
 const actions = {

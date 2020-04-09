@@ -9,8 +9,8 @@
           <router-link to="/">Home</router-link>
           &nbsp; &nbsp;<router-link to="/Admin" v-if="isSignedIn">Admin</router-link>
           &nbsp; &nbsp;
-          <router-link to="/Login" v-if="!isSignedIn">Login</router-link>
-          <router-link to="/Login" v-if="isSignedIn">Account</router-link>
+          <router-link to="/Account" v-if="!isSignedIn">Login</router-link>
+          <router-link to="/Account" v-if="isSignedIn">{{ getFirstName }}</router-link>
         </td>
         </tr>
     </table>
@@ -23,7 +23,7 @@
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
-  computed: mapGetters(['isSignedIn']),
+  computed: mapGetters(['isSignedIn', 'getFirstName']),
   created() {
     this.findUser();
   },

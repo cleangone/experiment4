@@ -1,16 +1,36 @@
 import { Auth } from 'aws-amplify';
 
+const NAME = 'name'
+const FAMILY_NAME = 'family_name'
+const PHONE = 'phone_number'
+
+function UserObj(firstName, lastName, phone) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.phone = phone;
+ 
+    this.getAttributes = function () { 
+        return { name:this.firstName, family_name:this.lastName, phone_number:this.phone }
+    }
+}
+
+// user.username looks like an ID because accounts are set up with email
 const state = {
-    userId: null
+    user: null,
+    userInfo: null
 };
 
 const getters = {
-    isSignedIn:(state) => { 
-        return state.userId != null 
+    isSignedIn:(state) => { return state.user != null },
+    getUserId:(state)  => { return (state.user == null ? null : state.user.username) },
+
+    getUser:(state) => { 
+        return (state.userInfo == null ? 
+            new UserObj(null, null, null) :
+            new UserObj(state.userInfo.attributes[NAME], state.userInfo.attributes[FAMILY_NAME], state.userInfo.attributes[PHONE]))
     },
-    getUserId:(state) => { 
-        return state.userId
-    }  
+
+    getFirstName:(state) => { return (state.userInfo == null ? null : state.userInfo.attributes[NAME]) }
 };
 
 // actions: do an action and then call a mutation to mutate the state
@@ -18,21 +38,48 @@ const actions = {
     async findUser({ commit }) {
       try {
         const user = await Auth.currentAuthenticatedUser();
-        commit('SET_AUTH_USER', user) 
+        try {
+            const userInfo = await Auth.currentUserInfo()
+            commit('SET_AUTH_USER', user) 
+            commit('SET_AUTH_USER_INFO', userInfo) 
+        } catch (err) {
+            console.log('error fetching user info: ', err);
+            commit('SET_AUTH_USER', null) 
+            commit('SET_AUTH_USER_INFO', null) 
+        }
       }
       catch(e) {
-        commit('SET_AUTH_USER', null) 
+        console.log('user not logged in');
+            commit('SET_AUTH_USER', null) 
+            commit('SET_AUTH_USER_INFO', null) 
       }
     },
     async logout ({ commit } ) { 
-        commit('SET_AUTH_USER', null) 
+            commit('SET_AUTH_USER', null) 
+            commit('SET_AUTH_USER_INFO', null) 
+    },
+    async updateUser ({ commit }, userObj ) { 
+        let result = await Auth.updateUserAttributes(state.user, userObj.getAttributes());
+        if (result == "SUCCESS")
+        {
+            try {
+                const userInfo = await Auth.currentUserInfo()
+                commit('SET_AUTH_USER_INFO', userInfo) 
+            } catch (err) {
+                console.log('error fetching user info after update: ', err);
+                commit('SET_AUTH_USER', null) 
+                commit('SET_AUTH_USER_INFO', null) 
+            }
+        }
     }
 }; 
 
 const mutations = {
     SET_AUTH_USER: (state, user) => { 
-        const username = (user == null ? null : user.username)
-        state.userId = username 
+        state.user = (user == null ? null : user)
+    },
+    SET_AUTH_USER_INFO: (state, userInfo) => { 
+        state.userInfo = (userInfo == null ? null : userInfo)
     }
 }
 

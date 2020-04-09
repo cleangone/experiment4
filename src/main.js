@@ -6,7 +6,7 @@ import { AmplifyPlugin } from 'aws-amplify-vue'
 import awsconfig from './aws-exports'
 import VueRouter from 'vue-router'
 import VuejsDialog from 'vuejs-dialog';
-import Login from './components/Login'
+import Account from './components/Account'
 import Trends from './components/Trends'
 import Admin from './components/Admin'
 import Admin2 from './components/Admin2'
@@ -37,7 +37,7 @@ Vue.config.productionTip = false
 const router = new VueRouter({
     routes: [
        {path: '/', component: Trends},
-       {path: '/Login', component: Login},
+       {path: '/Account', component: Account},
        {path: '/Admin', component: Admin},
        {path: '/Admin2', component: Admin2},
        {path: '*', component: Trends}

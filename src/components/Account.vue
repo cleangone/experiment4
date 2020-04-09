@@ -9,55 +9,57 @@
      
       <br><br>
       <amplify-sign-out></amplify-sign-out>
+
+      <div>
+        <input v-model="user.firstName" placeholder="First">
+        <input v-model="user.lastName" placeholder="Last">
+        <input v-model="user.phone" placeholder="Phone">
+        <br>
+        <button v-on:click="updateAccount">Update</button>
+      </div>
+
+      <br><br>
+      <EditTrends v-bind:userId=getUserId /> 
     </div>
     <div v-else>
-    <!--<div v-if="!isSignedIn">-->
+      <!--<amplify-forgot-password></amplify-forgot-password>-->
+
       <amplify-authenticator></amplify-authenticator>
     </div>
-
-    
-   
   </div>
 </template>
 
 <script>
+import EditTrends from "./common/EditTrends";
 import { AmplifyEventBus } from 'aws-amplify-vue';
-// import { API, graphqlOperation } from "aws-amplify";
 import { mapGetters, mapActions } from 'vuex';
-// import * as mutations from "../graphql/mutations";
 
 export default {
   name: 'Login',
-  computed: mapGetters(['isSignedIn', 'getUserId']),
+  components: { EditTrends },
+   data() {
+    return {
+      user: null
+    }
+  },
+  computed: mapGetters(['isSignedIn', 'getUserId', 'getUser']),
   created() {
     AmplifyEventBus.$on('authState', info => {
       if (info === "signedIn") { 
         this.findUser() 
-        
-        
-        // alert("Login.created calling retrieveUser")
-        // this.retrieveUser(this.getUserId())
       }
       else { this.logout() }
+
+      this.user = this.getUser
     });
+
+    this.user = this.getUser
   },
   methods: {
-   
-    // createUser(userId) {
-    //   console.log("createUser: userId=" + userId)
-    //   alert("createUser: userId=" + userId)
-    //   const createUserInput = { id:userId, nickname:this.nickname };
-    //   API.graphql(graphqlOperation(mutations.createUser, { input: createUserInput }));
-    // },
-    // updateUser(userId) {
-    //   alert("updateUser: userId=" + userId)
-    //   const updateUserInput = { id:userId, nickname:this.nickname };
-    //   API.graphql(graphqlOperation(mutations.updateUser, { input: updateUserInput }));
-    // },
-
-
-
-    ...mapActions(['findUser', 'logout'])
+    updateAccount() {
+      this.updateUser(this.user)
+   },
+    ...mapActions(['findUser', 'updateUser', 'logout'])
   }
 }
 </script>
