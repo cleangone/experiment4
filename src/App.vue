@@ -10,7 +10,7 @@
           &nbsp; &nbsp;<router-link to="/Admin" v-if="isSignedIn">Admin</router-link>
           &nbsp; &nbsp;
           <router-link to="/Account" v-if="!isSignedIn">Login</router-link>
-          <router-link to="/Account" v-if="isSignedIn">{{ getFirstName }}</router-link>
+          <router-link to="/Account" v-if="isSignedIn">{{ getAccountLinkText() }}</router-link>
         </td>
         </tr>
     </table>
@@ -27,7 +27,13 @@ export default {
   created() {
     this.findUser();
   },
-  methods: mapActions(['findUser']),
+  methods: {
+    getAccountLinkText() {
+      let firstName = this.getFirstName
+      return (firstName == null || firstName.length == 0 ? "Account" : firstName)
+    },
+    ...mapActions(['findUser'])
+  },
   mounted() {
   }
 }
