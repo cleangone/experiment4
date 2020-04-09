@@ -30,7 +30,7 @@ export default {
   methods: {
     getAccountLinkText() {
       let firstName = this.getFirstName
-      return (firstName == null || firstName.length == 0 ? "Account" : firstName)
+      return (firstName == null || firstName.trim().length == 0 ? "Account" : firstName)
     },
     ...mapActions(['findUser'])
   },

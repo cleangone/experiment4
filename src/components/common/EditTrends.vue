@@ -5,7 +5,7 @@
           <b-thead>
             <b-th>Name</b-th>
             <b-th>Video ID</b-th>
-            <b-th>User</b-th>
+            <b-th v-if="userId==null">User</b-th>
             <b-th>Up</b-th>
             <b-th>Down</b-th>
             <b-th>
@@ -15,7 +15,7 @@
             <b-tr>
               <b-td></b-td>
               <b-td></b-td>
-              <b-td></b-td>
+              <b-td v-if="userId==null"></b-td>
               <b-td></b-td>
               <b-td></b-td>
               <b-td>
@@ -29,7 +29,7 @@
             <!--<b-tr role="row" v-for="trend in trends" :key="trend.id">-->
               <b-td>{{trend.name}}</b-td>
               <b-td>{{trend.video}}</b-td>
-              <b-td>{{trend.userId}}</b-td>
+              <b-td v-if="userId==null">{{trend.userId}}</b-td>
               <b-td>{{trend.upVotes}}</b-td>
               <b-td>{{trend.downVotes}}</b-td>
               <b-td>
