@@ -4,13 +4,24 @@ const NAME = 'name'
 const FAMILY_NAME = 'family_name'
 const PHONE = 'phone_number'
 
-function UserObj(firstName, lastName, phone) {
+function UserObj(firstName, lastName, phoneAttribute) {
     this.firstName = firstName;
     this.lastName = lastName;
-    this.phone = phone;
- 
-    this.getAttributes = function () { 
-        return { name:this.firstName, family_name:this.lastName, phone_number:this.phone }
+    this.phone = (phoneAttribute == null ? null : phoneAttribute.substring(2));
+    
+    if (this.phone != null && this.phone.length == 10) { 
+        this.phone = this.phone.substring(0,3) + "-" + this.phone.substring(3,6) + "-" + this.phone.substring(6)
+    }
+
+    this.getAttributes = function() { 
+        return { 
+            name:this.firstName, 
+            family_name:this.lastName, 
+            phone_number:this.phoneDisplayToAttribute() }
+    }
+
+    this.phoneDisplayToAttribute = function() { 
+        return (this.phone == null ? null : "+1" + this.phone.replace("-", "").replace("-", ""));
     }
 }
 

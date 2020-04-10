@@ -1,13 +1,7 @@
 <template>
   <div class="login">
     <div v-if="isSignedIn">
-      <br>
-      
-      <!--<input v-model="nickname" placeholder="Nickname">-->
-      <!--<kendo-button v-if="hasNickname" style="font-size:large" @click="createUser(getUserId)">Add</kendo-button>-->
-      <!--<kendo-button v-if="!hasNickname" style="font-size:large" @click="createUser(getUserId)">Update</kendo-button>-->
-     
-      <br><br>
+      <br><br><br>
       <amplify-sign-out></amplify-sign-out>
 
       <div>
@@ -15,7 +9,7 @@
         <input v-model="user.lastName" placeholder="Last">
         <input v-model="user.phone" placeholder="Phone">
         <br>
-        <button v-on:click="updateAccount">Update</button>
+        <kendo-button style="margin: 6px 4px" @click="updateAccount">Update</kendo-button>
       </div>
 
       <br><br>
@@ -66,10 +60,10 @@ export default {
 
 <style scoped>
   input {
-  border: 2px solid silver;
-  margin: 1px 4px;
-  padding: 2px 2px;
-  height: 35px;
-  width: 140px;
-}
+    border: 2px solid silver;
+    margin: 1px 4px;
+    padding: 2px 2px;
+    height: 35px;
+    width: 140px;
+  }
 </style>
