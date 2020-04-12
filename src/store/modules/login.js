@@ -1,5 +1,8 @@
 import { Auth } from 'aws-amplify';
 
+
+const ADMIN_GROUP_NAME = 'Admin'
+
 const NAME = 'name'
 const FAMILY_NAME = 'family_name'
 const PHONE = 'phone_number'
@@ -25,7 +28,7 @@ function UserObj(firstName, lastName, phoneAttribute) {
     }
 }
 
-// user.username looks like an ID because accounts are set up with email
+// user.username looks like an ID because accounts are set up with email, thus it is generated
 const state = {
     user: null,
     userInfo: null
@@ -34,7 +37,17 @@ const state = {
 const getters = {
     isSignedIn:(state) => { return state.user != null },
     getUserId:(state)  => { return (state.user == null ? null : state.user.username) },
+    isAdmin:(state)  => { 
+        if (state.user == null) return false;
 
+        // these are the groups assigned at signin - not dynamically updated
+        var groups = state.user.signInUserSession.accessToken.payload["cognito:groups"]
+        for (var i in groups) {
+            if (ADMIN_GROUP_NAME === groups[i])  { return true }
+        }
+
+        return false    
+    },
     getUser:(state) => { 
         return (state.userInfo == null ? 
             new UserObj(null, null, null) :
