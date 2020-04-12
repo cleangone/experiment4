@@ -31,12 +31,12 @@
 				"GraphQLAPIEndpointOutput": "https://xmhrmicm5bbutkv25o5dchkppm.appsync-api.us-west-2.amazonaws.com/graphql",
 				"GraphQLAPIKeyOutput": "da2-hxsjtfmmvfaltcpt2y4nxcc5ee"
 			},
-			"lastPushTimeStamp": "2020-03-26T19:27:25.435Z",
+			"lastPushTimeStamp": "2020-04-12T03:30:29.500Z",
 			"providerMetadata": {
 				"s3TemplateURL": "https://s3.amazonaws.com/amplify-experiment4-dev-25129-deployment/amplify-cfn-templates/api/cloudformation-template.json",
 				"logicalId": "apiexperiment4"
 			},
-			"lastPushDirHash": "+H2CP5ZXuAF12Nb7ob3bf+Hercg="
+			"lastPushDirHash": "zdxHzvjHPEX+k7E/vSs5aEhzwMk="
 		}
 	},
 	"auth": {
@@ -49,7 +49,7 @@
 				"s3TemplateURL": "https://s3.amazonaws.com/amplify-experiment4-dev-25129-deployment/amplify-cfn-templates/auth/experiment455a912e8-cloudformation-template.yml",
 				"logicalId": "authexperiment455a912e8"
 			},
-			"lastPushTimeStamp": "2020-03-26T19:27:23.842Z",
+			"lastPushTimeStamp": "2020-04-12T03:30:28.455Z",
 			"output": {
 				"AppClientSecret": "12bkjcou4si4j6vc0u7119793m9cbrnarnf62bhl9p970hbs7bkc",
 				"UserPoolId": "us-west-2_tsRPKbw2Z",

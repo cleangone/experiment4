@@ -7,11 +7,6 @@ type Trend @model {
   userId: String
 }
 
-type User @model {
-  id: ID!
-  nickname: String!
-}
-
 input CastVoteInput {
   id: ID!
 }
