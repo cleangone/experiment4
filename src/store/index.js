@@ -1,16 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import login from './modules/login'
-import trends from './modules/trendStore'
-// import user from './modules/userStore'
+import cognito from './modules/cognitoStore'
+import trends  from './modules/trendStore'
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
     modules: {
-        login,
+        cognito,
         trends
-        // user
     }
 });
   

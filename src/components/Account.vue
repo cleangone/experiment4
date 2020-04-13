@@ -5,6 +5,9 @@
       <amplify-sign-out></amplify-sign-out>
 
       <div>
+        
+        <!--TODO - these values are not getting populated when the user first logsin-->
+        <!--they are populated if the page is displayed when the user is already logged in-->
         <input v-model="user.firstName" placeholder="First">
         <input v-model="user.lastName" placeholder="Last">
         <input v-model="user.phone" placeholder="Phone">
@@ -39,6 +42,8 @@ export default {
   computed: mapGetters(['isSignedIn', 'getUserId', 'getUser']),
   created() {
     AmplifyEventBus.$on('authState', info => {
+      
+      alert("AmplifyEventBus")
       if (info === "signedIn") { 
         this.findUser() 
       }

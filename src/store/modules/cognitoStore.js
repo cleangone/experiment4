@@ -1,8 +1,6 @@
 import { Auth } from 'aws-amplify';
 
-
 const ADMIN_GROUP_NAME = 'Admin'
-
 const NAME = 'name'
 const FAMILY_NAME = 'family_name'
 const PHONE = 'phone_number'
@@ -57,43 +55,36 @@ const getters = {
     getFirstName:(state) => { return (state.userInfo == null ? null : state.userInfo.attributes[NAME]) }
 };
 
-// actions: do an action and then call a mutation to mutate the state
 const actions = {
-    async findUser({ commit }) {
+    async findUser({ commit, dispatch }) {
       try {
         const user = await Auth.currentAuthenticatedUser();
-        try {
-            const userInfo = await Auth.currentUserInfo()
-            commit('SET_AUTH_USER', user) 
-            commit('SET_AUTH_USER_INFO', userInfo) 
-        } catch (err) {
-            console.log('error fetching user info: ', err);
-            commit('SET_AUTH_USER', null) 
-            commit('SET_AUTH_USER_INFO', null) 
-        }
+        commit('SET_AUTH_USER', user) 
+        dispatch('getCurrentUserInfo')
       }
       catch(e) {
-        console.log('user not logged in');
-            commit('SET_AUTH_USER', null) 
-            commit('SET_AUTH_USER_INFO', null) 
+        console.log('Error calling Auth.currentAuthenticatedUser: ', e);
+        dispatch('logout')
       }
     },
     async logout ({ commit } ) { 
-            commit('SET_AUTH_USER', null) 
-            commit('SET_AUTH_USER_INFO', null) 
+        alert("logging out")
+        commit('SET_AUTH_USER', null) 
+        commit('SET_AUTH_USER_INFO', null) 
     },
-    async updateUser ({ commit }, userObj ) { 
+    async updateUser ({ dispatch }, userObj ) { 
         let result = await Auth.updateUserAttributes(state.user, userObj.getAttributes());
-        if (result == "SUCCESS")
-        {
-            try {
-                const userInfo = await Auth.currentUserInfo()
-                commit('SET_AUTH_USER_INFO', userInfo) 
-            } catch (err) {
-                console.log('error fetching user info after update: ', err);
-                commit('SET_AUTH_USER', null) 
-                commit('SET_AUTH_USER_INFO', null) 
-            }
+        if (result == "SUCCESS") {
+           dispatch('getCurrentUserInfo')
+        }
+    },
+    async getCurrentUserInfo ({ commit, dispatch } ) { 
+        try {
+            const userInfo = await Auth.currentUserInfo()
+            commit('SET_AUTH_USER_INFO', userInfo) 
+        } catch (err) {
+            console.log('Error calling Auth.currentUserInfo: ', err);
+            dispatch('logout')
         }
     }
 }; 
