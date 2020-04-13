@@ -17,7 +17,7 @@ const getters = {
     isAdmin:(state)  => { 
         if (state.user == null) return false;
 
-        // these are the groups assigned at signin - not dynamically updated
+        // groups assigned at signin - not dynamically updated
         var groups = state.user.signInUserSession.accessToken.payload["cognito:groups"]
         for (var i in groups) {
             if (ADMIN_GROUP_NAME === groups[i])  { return true }
@@ -55,7 +55,6 @@ const actions = {
       }
     },
     async logout ({ commit } ) { 
-        alert("logging out")
         commit('SET_AUTH_USER', null) 
         commit('SET_AUTH_USER_INFO', null) 
     },
