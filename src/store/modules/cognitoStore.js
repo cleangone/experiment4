@@ -5,27 +5,6 @@ const NAME = 'name'
 const FAMILY_NAME = 'family_name'
 const PHONE = 'phone_number'
 
-function UserObj(firstName, lastName, phoneAttribute) {
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.phone = (phoneAttribute == null ? null : phoneAttribute.substring(2));
-    
-    if (this.phone != null && this.phone.length == 10) { 
-        this.phone = this.phone.substring(0,3) + "-" + this.phone.substring(3,6) + "-" + this.phone.substring(6)
-    }
-
-    this.getAttributes = function() { 
-        return { 
-            name:this.firstName, 
-            family_name:this.lastName, 
-            phone_number:this.phoneDisplayToAttribute() }
-    }
-
-    this.phoneDisplayToAttribute = function() { 
-        return (this.phone == null ? null : "+1" + this.phone.replace("-", "").replace("-", ""));
-    }
-}
-
 // user.username looks like an ID because accounts are set up with email, thus it is generated
 const state = {
     user: null,
@@ -46,13 +25,21 @@ const getters = {
 
         return false    
     },
-    getUser:(state) => { 
-        return (state.userInfo == null ? 
-            new UserObj(null, null, null) :
-            new UserObj(state.userInfo.attributes[NAME], state.userInfo.attributes[FAMILY_NAME], state.userInfo.attributes[PHONE]))
-    },
-
-    getFirstName:(state) => { return (state.userInfo == null ? null : state.userInfo.attributes[NAME]) }
+    getFirstName:(state) => { return (state.userInfo == null ? null : state.userInfo.attributes[NAME]) },
+    getLastName:(state) => { return (state.userInfo == null ? null : state.userInfo.attributes[FAMILY_NAME]) },
+    getPhone:(state) => { 
+        if (state.userInfo == null) { return null }
+        
+        var phone = state.userInfo.attributes[PHONE]
+        if (phone != null) { 
+            phone = phone.substring(2); // remove country code (i.e. "+1")
+            if (phone.length == 10) { 
+                phone = phone.substring(0,3) + "-" + phone.substring(3,6) + "-" + phone.substring(6)
+            }
+        }
+        
+        return phone;
+    }
 };
 
 const actions = {
@@ -72,8 +59,14 @@ const actions = {
         commit('SET_AUTH_USER', null) 
         commit('SET_AUTH_USER_INFO', null) 
     },
-    async updateUser ({ dispatch }, userObj ) { 
-        let result = await Auth.updateUserAttributes(state.user, userObj.getAttributes());
+    async updateUser ({ dispatch }, user ) { 
+        // sparse update
+        var attributes = { }
+        if (user.firstName != null) { attributes[NAME] = user.firstName }
+        if (user.lastName != null) { attributes[FAMILY_NAME] = user.lastName }
+        if (user.phone != null) { attributes[PHONE] = "+1" + user.phone.replace("-", "").replace("-", "") }
+
+        let result = await Auth.updateUserAttributes(state.user, attributes);
         if (result == "SUCCESS") {
            dispatch('getCurrentUserInfo')
         }

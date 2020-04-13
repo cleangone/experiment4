@@ -5,12 +5,9 @@
       <amplify-sign-out></amplify-sign-out>
 
       <div>
-        
-        <!--TODO - these values are not getting populated when the user first logsin-->
-        <!--they are populated if the page is displayed when the user is already logged in-->
-        <input v-model="user.firstName" placeholder="First">
-        <input v-model="user.lastName" placeholder="Last">
-        <input v-model="user.phone" placeholder="Phone">
+        <input v-model="firstName" placeholder="First">
+        <input v-model="lastName" placeholder="Last">
+        <input v-model="phone" placeholder="Phone">
         <br>
         <kendo-button style="margin: 6px 4px" @click="updateAccount">Update</kendo-button>
       </div>
@@ -36,23 +33,33 @@ export default {
   components: { EditTrends },
    data() {
     return {
-      user: null
+      user: { firstName: null, lastName: null, phone: null }
     }
   },
-  computed: mapGetters(['isSignedIn', 'getUserId', 'getUser']),
+  computed: {
+    ...mapGetters(['isSignedIn', 'getUserId', 'getFirstName', 'getLastName', 'getPhone']),
+    firstName: {
+      get() { return this.getFirstName },
+      set(value) { this.user.firstName = value }
+    },
+    lastName: {
+      get() { return this.getLastName },
+      set(value) { this.user.lastName = value }
+    },
+    phone: {
+      get() { return this.getPhone },
+      set(value) { this.user.phone = value }
+    }
+  },
+  
   created() {
+    this.findUser();
     AmplifyEventBus.$on('authState', info => {
-      
-      alert("AmplifyEventBus")
       if (info === "signedIn") { 
         this.findUser() 
       }
       else { this.logout() }
-
-      this.user = this.getUser
     });
-
-    this.user = this.getUser
   },
   methods: {
     updateAccount() {
